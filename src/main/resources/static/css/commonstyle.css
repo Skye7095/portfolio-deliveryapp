@@ -11,3 +11,20 @@
 	height: 50px;
 	font-family: 'Dongle', sans-serif;
 }
+
+#gradeInfoBtn{
+  position: relative;
+  top:40px;
+  left:280px;
+  background-color: white;
+  text-decoration: underline;
+}
+
+#gradeInfoBtnModal{
+	position: fixed;
+	top: 0px;
+}
+
+#profileImgBtn{
+	background-color: white;
+}

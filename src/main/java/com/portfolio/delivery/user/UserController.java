@@ -12,4 +12,24 @@ public class UserController {
 	public String UserSigninView() {
 		return "/user/signin";
 	}
+	
+	@GetMapping("/mypage/view")
+	public String UserMyPageView() {
+		return "/user/mypage";
+	}
+	
+	@GetMapping("/grade/view")
+	public String UserGradeView() {
+		return "/user/grade";
+	}
+	
+	@GetMapping("/point/view")
+	public String UserPointView() {
+		return "/user/point";
+	}
+	
+	@GetMapping("/info/view")
+	public String UserInfoView() {
+		return "/user/info";
+	}
 }
