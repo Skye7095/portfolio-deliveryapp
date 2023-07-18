@@ -12,4 +12,14 @@ public class StoreController {
 	public String StoreSigninView() {
 		return "/store/signin";
 	}
+	
+	@GetMapping("/mypage/view")
+	public String StoreMypageView() {
+		return "/store/mypage";
+	}
+	
+	@GetMapping("/info/view")
+	public String StoreInfoView() {
+		return "/store/info";
+	}
 }

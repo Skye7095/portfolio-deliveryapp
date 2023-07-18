@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>미식가 my배달</title>
+<title>미식가 my페이지</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -26,7 +26,7 @@
 	<div id="wrap">
 		<header id="header" class="bg-primary d-flex justify-content-between align-items-center">
 			<button type="button" class="btn back bg-primary"><i class="fa-solid fa-left-long fa-2xl"></i></button>
-			<h1 class="text-center">신분 선택</h1>
+			<h1 class="text-center">my페이지</h1>
 			<button type="button" class="btn home bg-primary"><i class="fa-solid fa-house fa-2xl"></i></button>
 		</header>
 		

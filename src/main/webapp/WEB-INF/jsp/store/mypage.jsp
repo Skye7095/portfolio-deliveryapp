@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>미식가 정보</title>
+<title>사장님 my페이지</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -26,7 +25,7 @@
 	<div id="wrap">
 		<header id="header" class="bg-primary d-flex justify-content-between align-items-center">
 			<button type="button" class="btn back bg-primary"><i class="fa-solid fa-left-long fa-2xl"></i></button>
-			<h1 class="text-center">내 정보</h1>
+			<h1 class="text-center">my페이지</h1>
 			<button type="button" class="btn home bg-primary"><i class="fa-solid fa-house fa-2xl"></i></button>
 		</header>
 		
@@ -36,29 +35,23 @@
 				<input class="profile mt-3 d-none" type="file" multiple id="profileFileInput">
 			</div>
 			
-			<div data-toggle="modal" data-target="#nickNameUpdateBtnModal">
-				<button type="button" id="nickNameUpdateBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
-					<div class="d-flex justify-content-between align-items-center">
-						<span class="font-weight-bold">닉네임</span>
-						<div class="d-flex align-items-center">
-							<span class="text-secondary" style="font-size:12px">홍길동</span>
-							<span class="text-secondary"> ></span>
-						</div>
+			<button type="button" id="storeInfoBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">가게 정보</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
 					</div>
-				</button>
-			</div>
+				</div>
+			</button>
 			
-			<div data-toggle="modal" data-target="#emailUpdateBtnModal">
-				<button type="button" id="emailUpdateBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
-					<div class="d-flex justify-content-between align-items-center">
-						<span class="font-weight-bold">이메일</span>
-						<div class="d-flex align-items-center">
-							<span class="text-secondary" style="font-size:12px">hongildong@naver.com</span>
-							<span class="text-secondary"> ></span>
-						</div>
+			<button type="button" id="storeOrderBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">주문관리</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
 					</div>
-				</button>
-			</div>
+				</div>
+			</button>
 			
 			<div data-toggle="modal" data-target="#pwUpdateBtnModal">
 				<button type="button" id="pwUpdateBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
@@ -69,14 +62,32 @@
 				</button>
 			</div>
 			
-			<div data-toggle="modal" data-target="#phoneUpdateBtnModal">
-				<button type="button" id="phoneUpdateBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
-					<div class="d-flex justify-content-between align-items-center">
-						<span class="font-weight-bold">휴대폰번호 변경</span>
+			<button type="button" id="menuBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">메뉴관리</span>
+					<div class="d-flex align-items-center">
 						<span class="text-secondary"> ></span>
 					</div>
-				</button>
-			</div>
+				</div>
+			</button>
+			
+			<button type="button" id="reviewBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">리뷰관리</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
+					</div>
+				</div>
+			</button>
+			
+			<button type="button" id="statisticsBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">매장통계</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
+					</div>
+				</div>
+			</button>
 			
 			<button type="button" id="identityChangeBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
 				<div class="d-flex justify-content-between align-items-center">
@@ -85,34 +96,6 @@
 				</div>
 			</button>
 		</section>
-	</div>
-	
-	<!-- 닉네임변경 modal -->
-	<div class="modal fade" id="nickNameUpdateBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-	    <div class="modal-content">
-	    	<div class="modal-body">
-	    		<h5 class="text-center">닉네임 변경</h5>
-	    		<input type="text" class="form-control" placeholder="홍길동">
-	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
-	    	</div>
-	    </div>
-	  </div>
-	</div>
-	
-	<!-- 이메일변경 modal -->
-	<div class="modal fade" id="emailUpdateBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-	    <div class="modal-content">
-	    	<div class="modal-body">
-	    		<h5 class="text-center">이메일 변경</h5>
-	    		<input type="text" class="form-control" placeholder="hongildong@naver.com">
-	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
-	    	</div>
-	    </div>
-	  </div>
 	</div>
 	
 	<!-- 비번변경 modal -->
@@ -137,22 +120,26 @@
 	  </div>
 	</div>
 	
-	<!-- 휴대폰번호 변경 modal -->
-	<div class="modal fade" id="phoneUpdateBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-	    <div class="modal-content">
-	    	<div class="modal-body">
-	    		<h5 class="text-center">휴대폰 번호 변경</h5>
-	    		<input type="text" class="form-control" placeholder="010-1234-5678">
-	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
-	    	</div>
-	    </div>
-	  </div>
-	</div>
-	
 	<script>
 		$(document).ready(function(){
+			$("#identityChangeBtn").on("click", function(){
+				location.href="/app/identity/view";
+			})
+			
+			$("#statisticsBtn").on("click", function(){
+				location.href="/store/statistics/review";
+			})
+			
+			$("#reviewBtn").on("click", function(){
+				location.href="/store/review/view";
+			})
+			$("#menuBtn").on("click", function(){
+				location.href="/store/menu/view";
+			})
+			
+			$("#storeOrderBtn").on("click", function(){
+				location.href="/store/order/view";
+			})
 			
 			// 비번 변경 > 입력시 눈 보이기/ 숨기기 이벤트
 			$("#pwEyeBtnNow").on('click',function(){
@@ -181,8 +168,8 @@
 				}
 		    });
 			
-			$("#identityChangeBtn").on("click", function(){
-				location.href="/app/identity/view";
+			$("#storeInfoBtn").on("click", function(){
+				location.href="/store/info/view";
 			})
 			
 			$("#profileImgBtn").on("click", function(){
