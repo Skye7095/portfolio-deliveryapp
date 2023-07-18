@@ -32,4 +32,14 @@ public class UserController {
 	public String UserInfoView() {
 		return "/user/info";
 	}
+	
+	@GetMapping("/like/view")
+	public String UserLikeView() {
+		return "/user/like";
+	}
+	
+	@GetMapping("/history/view")
+	public String UserHistoryView() {
+		return "/user/history";
+	}
 }

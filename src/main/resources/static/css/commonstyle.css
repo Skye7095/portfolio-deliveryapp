@@ -28,3 +28,11 @@
 #profileImgBtn{
 	background-color: white;
 }
+
+#orderDetailsBtnModal{
+	width: 350px;
+	height: 500px;
+	position: fixed;
+	top: 80px;
+	left: 39%;
+}
