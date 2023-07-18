@@ -42,4 +42,9 @@ public class UserController {
 	public String UserHistoryView() {
 		return "/user/history";
 	}
+	
+	@GetMapping("/review/view")
+	public String UserReviewView() {
+		return "/user/review";
+	}
 }
