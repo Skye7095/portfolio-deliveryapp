@@ -22,4 +22,14 @@ public class StoreController {
 	public String StoreInfoView() {
 		return "/store/info";
 	}
+	
+	@GetMapping("/menuManagement/view")
+	public String StoreMenuManagementView() {
+		return "/store/menuManagement";
+	}
+	
+	@GetMapping("/menuUpload/view")
+	public String StoreMenuUploadView() {
+		return "/store/menuUpload";
+	}
 }
