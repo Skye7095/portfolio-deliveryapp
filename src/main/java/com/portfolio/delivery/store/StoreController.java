@@ -32,4 +32,19 @@ public class StoreController {
 	public String StoreMenuUploadView() {
 		return "/store/menuUpload";
 	}
+	
+	@GetMapping("/order/view")
+	public String StoreOrderView() {
+		return "/store/order";
+	}
+	
+	@GetMapping("/review/view")
+	public String StoreReviewView() {
+		return "/store/review";
+	}
+	
+	@GetMapping("/statistics/view")
+	public String StoreStatisticsView() {
+		return "/store/statistics";
+	}
 }

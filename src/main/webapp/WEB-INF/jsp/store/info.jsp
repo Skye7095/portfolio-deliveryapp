@@ -42,10 +42,22 @@
 			<textarea class="form-control mt-2" rows="5" placeholder="가게를 소개해주세요"></textarea>
 			
 			<div class="d-flex justify-content-between align-items-center mt-2">
+				<span>가게 카테고리</span>
+				<select class="form-control col-7">
+				  <option selected>한식</option>
+				  <option value="1">중식</option>
+				  <option value="2">일식</option>
+				  <option value="3">피자·치킨</option>
+				  <option value="4">야식</option>
+				  <option value="5">카페</option>
+				</select>
+			</div>
+			
+			<div class="d-flex justify-content-between align-items-center mt-2">
 				<span>최소 주문금액</span>
-				<div class="d-flex col-6 align-items-center">
-					<input class="form-control mr-1">
-					<span>원</span>
+				<div class="d-flex justify-content-end align-items-center">
+					<input class="form-control">
+					<span>원</span>		
 				</div>
 			</div>
 			
@@ -94,7 +106,7 @@
 							<td class="border border-dark col-4"><span>+</span><input placeholder="1,000" class="col-6">원</td>
 						</tr>
 						<tr>
-							<td class="border border-dark col-8"><input placeholder="서초구 방배동"></td>
+							<td class="border border-dark col-8"><input placeholder="방배1동, 방배2동"></td>
 							<td class="border border-dark col-4"><span>+</span><input placeholder="500" class="col-6">원</td>
 						</tr>
 					</tbody>

@@ -34,6 +34,7 @@
 			<div class="text-center my-3">
 				<button type="button" id="menuImgBtn" class="btn"><img width="100" src="/static/images/image.png"></button>
 				<input class="profile mt-3 d-none" type="file" multiple id="profileFileInput">
+				<p class="text-danger">＊사진은 필수 아님</p>
 			</div>
 			
 			<div class="d-flex justify-content-center">
@@ -43,19 +44,44 @@
 			<textarea class="form-control mt-2" rows="5" placeholder="메뉴를 소개해주세요"></textarea>
 			
 			<div class="d-flex justify-content-between align-items-center mt-2">
+				<span>메뉴분류</span>
+				<select class="form-control col-7">
+				  <option selected>메인</option>
+				  <option value="1">인기</option>
+				  <option value="2">음료</option>
+				  <option value="3">피자·치킨</option>
+				  <option value="4">야식</option>
+				  <option value="5">카페</option>
+				</select>
+			</div>
+			
+			<div class="d-flex justify-content-between align-items-center mt-2">
+				<span>메뉴태그</span>
+				<select class="form-control col-7" multiple size="1">
+				  <option selected>없음</option>
+				  <option value="1">사장님 추천</option>
+				  <option value="2">대표메뉴</option>
+				  <option value="3">인기메뉴</option>
+				</select>
+			</div>
+			
+			<div class="d-flex justify-content-between align-items-center mt-2">
 				<span>가격</span>
-				<div class="d-flex col-6 align-items-center">
-					<input class="form-control mr-1">
-					<span>원</span>
+				<div class="d-flex justify-content-end align-items-center">
+					<input class="form-control">
+					<span>원</span>		
 				</div>
 			</div>
 			
-			
 			<div class="bg-light mt-3 p-1">
 			<c:forEach var="i" begin="1" end="3" step="1" varStatus="vs">
-				<div class="menuOptionDiv d-none" id="menuOptionDiv${vs.index }" data-index-id="${menuOptionDetailAddBtn }">
+				<div class="menuOptionDiv d-none" id="menuOptionDiv${vs.index }" data-index-id="${vs.index }">
 					<div class="d-flex">
 						<input class="form-control mr-1" placeholder="옵션란 이름을 적어주세요">
+						<select class="form-control col-3">
+						  <option selected>선택</option>
+						  <option value="1">필수</option>
+						</select>
 						<button type="button" id="menuOptionAddBtn${vs.index }" class="menuOptionAddBtn btn btn-sm rounded-circle d-none" data-index-id="${vs.index}"><i class="fa-solid fa-plus"></i></button>
 					</div>
 				
@@ -80,12 +106,6 @@
 	
 	<script>
 		$(document).ready(function(){
-						
-			/* var menuOptionDetailAdd = '<tr>' +
-				'<td class="border border-dark col-2"></td>' +
-				'<td class="border border-dark col-5"><input placeholder="아주 맵게" class="col-12" id="menuOption${vs.index }Detail${repeat}"></td>' +
-				'<td class="border border-dark col-5"><span>+ </span><input placeholder="500" class="col-8">원</td>' +
-			'</tr>' */
 			
 			$("#menuOptionDiv1").removeClass("d-none");
 			$("#menuOptionAddBtn1").removeClass("d-none");

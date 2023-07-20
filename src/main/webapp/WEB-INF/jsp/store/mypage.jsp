@@ -127,14 +127,14 @@
 			})
 			
 			$("#statisticsBtn").on("click", function(){
-				location.href="/store/statistics/review";
+				location.href="/store/statistics/view";
 			})
 			
 			$("#reviewBtn").on("click", function(){
 				location.href="/store/review/view";
 			})
 			$("#menuBtn").on("click", function(){
-				location.href="/store/menu/view";
+				location.href="/store/menuManagement/view";
 			})
 			
 			$("#storeOrderBtn").on("click", function(){
