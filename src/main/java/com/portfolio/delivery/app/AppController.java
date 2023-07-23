@@ -26,4 +26,9 @@ public class AppController {
 	public String resetPWView() {
 		return "/app/resetPW";
 	}
+	
+	@GetMapping("/main/view")
+	public String mainView() {
+		return "/app/main";
+	}
 }

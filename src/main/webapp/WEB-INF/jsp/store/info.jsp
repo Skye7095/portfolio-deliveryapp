@@ -47,9 +47,12 @@
 				  <option selected>한식</option>
 				  <option value="1">중식</option>
 				  <option value="2">일식</option>
-				  <option value="3">피자·치킨</option>
-				  <option value="4">야식</option>
-				  <option value="5">카페</option>
+				  <option value="3">피자</option>
+				  <option value="4">치킨</option>
+				  <option value="5">햄버거</option>
+				  <option value="6">분식</option>
+				  <option value="7">카페</option>
+				  <option value="8">야식</option>
 				</select>
 			</div>
 			

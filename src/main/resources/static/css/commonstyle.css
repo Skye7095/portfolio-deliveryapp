@@ -6,9 +6,7 @@
 	margin: 0 auto;
 }
 
-#header{
-	width: 400px;
-	height: 50px;
+header{
 	font-family: 'Dongle', sans-serif;
 }
 
@@ -48,4 +46,25 @@
 #amount::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.storeCatBtn{
+	background-color: #ffffff;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+}
+
+.footerBtn{
+	background-color: #ffffff;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+}
+
+footer{
+	width: 400px;
+	margin: 0 auto;
+	position : relative;
+  	transform : translateY(-100%);
 }
