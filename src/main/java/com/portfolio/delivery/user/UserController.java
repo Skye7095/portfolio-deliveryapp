@@ -47,4 +47,14 @@ public class UserController {
 	public String UserReviewView() {
 		return "/user/review";
 	}
+	
+	@GetMapping("/cart/view")
+	public String UserCartView() {
+		return "/user/cart";
+	}
+	
+	@GetMapping("/payment/view")
+	public String UserPaymentView() {
+		return "/user/payment";
+	}
 }
