@@ -86,22 +86,22 @@
 	</div>
 	
 	<footer class="d-flex justify-content-between align-items-center border-top">
-			<button type="button" class="btn footerBtn">
-				<img width="35" src="/static/images/search.png">
-			</button>
-			<button type="button" class="btn footerBtn">
-				<img width="35" src="/static/images/like.png">
-			</button>
-			<button type="button" class="btn footerBtn">
-				<img width="35" src="/static/images/cart.png">
-			</button>
-			<button type="button" class="btn footerBtn">
-				<img width="35" src="/static/images/history.png">
-			</button>
-			<button type="button" class="btn footerBtn">
-				<img width="35" src="/static/images/info.png">
-			</button>
-		</footer>
+		<button type="button" class="btn footerBtn">
+			<img width="35" src="/static/images/search.png">
+		</button>
+		<button type="button" class="btn footerBtn">
+			<img width="35" src="/static/images/like.png">
+		</button>
+		<button type="button" class="btn footerBtn">
+			<img width="35" src="/static/images/cart.png">
+		</button>
+		<button type="button" class="btn footerBtn">
+			<img width="35" src="/static/images/history.png">
+		</button>
+		<button type="button" class="btn footerBtn">
+			<img width="35" src="/static/images/info.png">
+		</button>
+	</footer>
 	
 	<!-- 주소록 modal -->
 	<div class="modal fade" id="addressBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

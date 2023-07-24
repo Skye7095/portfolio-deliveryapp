@@ -55,6 +55,12 @@ header{
 	text-align: center;
 }
 
+ul{
+	height: 50px;
+	white-space: nowrap; 
+	overflow-x: auto;
+}
+
 .footerBtn{
 	background-color: #ffffff;
 	width: 60px;

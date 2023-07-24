@@ -31,4 +31,9 @@ public class AppController {
 	public String mainView() {
 		return "/app/main";
 	}
+	
+	@GetMapping("/category/view")
+	public String categoryView() {
+		return "/app/category";
+	}
 }
