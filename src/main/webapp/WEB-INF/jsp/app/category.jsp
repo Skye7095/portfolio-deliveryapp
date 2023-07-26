@@ -65,6 +65,16 @@
 		</nav>
 		
 		<section class="container">
+			<div class="d-flex mt-3">
+				<img width="100" src="/static/images/info.png">
+				<div>
+					<span class="font-weight-bold">왕돈까스 & 왕냉면 구로사거리점</span><br>
+					<i class="fa-solid fa-star" style="color: #ece509;"></i><span class="font-weight-bold">4.9</span>(100+) <br>
+					배달 34~49분 <br>
+					<span class="text-secondary">최소주문</span>  &nbsp &nbsp 14,000원
+				</div>
+			</div>
+			<hr>
 		</section>
 	</div>
 	

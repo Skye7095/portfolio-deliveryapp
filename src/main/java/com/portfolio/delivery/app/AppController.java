@@ -36,4 +36,9 @@ public class AppController {
 	public String categoryView() {
 		return "/app/category";
 	}
+	
+	@GetMapping("/search/view")
+	public String searchView() {
+		return "/app/search";
+	}
 }
