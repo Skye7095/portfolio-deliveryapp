@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.portfolio.delivery.rider.dao.RiderDAO">
+	<!-- 회원가입 -->
+	<insert id="insertRider" parameterType="map">
+		INSERT INTO
+			`rider`
+		(
+			`loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUE
+		(
+			#{loginId}
+			, #{password}
+			, #{name}
+			, #{phone}
+			, #{email}
+			, now()
+			, now()
+		)
+	</insert>
+	
+	<!-- rider 회원가입시 정보 중복 여부 -->
+	<select id="selectSameRider" parameterType="map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`rider`
+		WHERE
+			(`name` = #{name} AND `phone` = #{phone})
+		OR
+			(`name` = #{name} AND `email` = #{email})
+	</select>
+	
+	<!-- user 아이디 중복여부 -->
+	<select id="selectSameId" parameterType="string" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`rider`
+		WHERE
+			`loginId` = #{loginId}
+	</select>
+</mapper>

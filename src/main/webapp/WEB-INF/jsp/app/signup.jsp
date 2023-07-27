@@ -41,10 +41,13 @@
 			
 			<article class="userSignupBox my-3 border border-secondary">
 				<div class="my-3 container">
+					<div>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="아이디" id="userIdInput">
 						<button class="btn btn-primary" type="button" id="duplicatedChecked1">중복확인</button>
 					</div>
+					<span class="text-success d-none ml-5" id="avaliableId1">사용가능한 아이디입니다.</span>
+					<span class="text-danger d-none ml-5" id="isDuplicatedId1">중복된 아이디입니다.</span>
 					<div class="input-group mb-3 userPwEye">
 						<input type="password" class="form-control" placeholder="비밀번호" id="userPasswordInput">
 						<button class="btn border border-secondary" type="button" id="userPwEyeBtn"><i class="fa-solid fa-eye"></i></button>
@@ -53,10 +56,10 @@
 					<input type="text" class="form-control my-3" placeholder="이름" id="userNameInput">
 					<input type="text" class="form-control my-3" placeholder="휴대폰번호" id="userPhoneInput">
 					<input type="text" class="form-control my-3" placeholder="이메일" id="userEmailInput">
-					<input type="text" class="form-control my-3" placeholder="닉네임(필수아님)" id="userNickNameInput">
+					<input type="text" class="form-control my-3" placeholder="닉네임" id="userNickNameInput">
 					
 					<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-						<button type="button" class="col-6 btn btn-primary">미식가 가입</button>
+						<button type="button" class="col-6 btn btn-primary" id="userSignupBtn">미식가 가입</button>
 					</div>
 				</div>
 			</article>
@@ -67,6 +70,8 @@
 						<input type="text" class="form-control" placeholder="사업자등록번호" id="storeBusinessNumberInput">
 						<button class="btn btn-primary" type="button" id="duplicatedChecked2">중복확인</button>
 					</div>
+					<span class="text-success d-none ml-5" id="avaliableId2">가입가능한 사업자입니다.</span>
+					<span class="text-danger d-none ml-5" id="isDuplicatedId2">이미 가입된 사업자입니다.</span>
 					<div class="input-group mb-3 storePwEye">
 						<input type="password" class="form-control" placeholder="비밀번호" id="storePasswordInput">
 						<button class="btn border border-secondary" type="button" id="storePwEyeBtn"><i class="fa-solid fa-eye"></i></button>
@@ -76,7 +81,7 @@
 					<input type="text" class="form-control my-3" placeholder="대표자 휴대폰번호" id="storeOwnerPhoneInput">
 					
 					<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-						<button type="button" class="col-6 btn btn-primary">미식가 가입</button>
+						<button type="button" class="col-6 btn btn-primary" id="storeSignupBtn">사장님 가입</button>
 					</div>
 				</div>
 			</article>
@@ -87,6 +92,8 @@
 						<input type="text" class="form-control" placeholder="아이디" id="riderIdInput">
 						<button class="btn btn-primary" type="button" id="duplicatedChecked3">중복확인</button>
 					</div>
+					<span class="text-success d-none ml-5" id="avaliableId3">사용가능한 아이디입니다.</span>
+					<span class="text-danger d-none ml-5" id="isDuplicatedId3">중복된 아이디입니다.</span>
 					<div class="input-group mb-3 riderPwEye">
 						<input type="password" class="form-control" placeholder="비밀번호" id="riderPasswordInput">
 						<button class="btn border border-secondary" type="button" id="riderPwEyeBtn"><i class="fa-solid fa-eye"></i></button>
@@ -97,7 +104,7 @@
 					<input type="text" class="form-control my-3" placeholder="이메일" id="riderEmailInput">
 					
 					<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-						<button type="button" class="col-6 btn btn-primary">미식가 가입</button>
+						<button type="button" class="col-6 btn btn-primary" id="riderSignupBtn">라이더 가입</button>
 					</div>
 				</div>
 			</article>
@@ -106,6 +113,349 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			// riderId 중복체크
+			var isDuplicatedCheck3 = false;
+			var isDuplicatedId3 = true;
+			
+			$("#duplicatedChecked3").on("click", function(){
+				let id = $("#riderIdInput").val();
+				
+				if(id == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/rider/duplicated_id"
+					, data:{"loginId":id}
+					, success:function(data){
+						isDuplicatedCheck3 = true;
+						
+						if(data.is_duplicated == true){
+							isDuplicatedId3 = true;
+							$("#isDuplicatedId3").removeClass("d-none");
+							$("#avaliableId3").addClass("d-none");
+						}else{
+							isDuplicatedId3 = false;
+							$("#isDuplicatedId3").addClass("d-none");
+							$("#avaliableId3").removeClass("d-none");
+						}
+					}
+					, error:function(){
+						alert("중복체크 에러");
+					}
+				}) 
+			});
+			
+			// rider 회원가입
+			$("#riderSignupBtn").on("click", function(){
+				let id = $("#riderIdInput").val();
+				let password = $("#riderPasswordInput").val();
+				let passwordConfirm = $("#riderPasswordDoubleInput").val();
+				let name = $("#riderNameInput").val();
+				let phone = $("#riderPhoneInput").val();
+				let email = $("#riderEmailInput").val();
+
+				if(id == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(isDuplicatedCheck3 == false){
+					alert("아이디 중복확인하세요");
+					return;
+				}
+				
+				if(isDuplicatedId3 == true){
+					alert("아이디 중복되었습니다");
+					return;
+				}
+				
+				if(password.length < 6){
+					alert("비밀번호가 6자 이상이어야 해요");
+					return;
+				}
+				
+				if(passwordConfirm != password){
+					alert("비밀번호 다시 확인해주세요");
+					return;
+				}
+				
+				if(name == ""){
+					alert("이름을 입력하세요");
+					return;
+				}
+				
+				if(!phone.startsWith("010") || phone.length != 11){
+					alert("010로 시작한 11자리 전화번호를 입력하세요");
+					return;
+				}
+				
+				if(!$.isNumeric(phone)){
+					alert("전화번호 숫자만 입력하세요");
+					return;
+				}
+
+				if(email == ""){
+					alert("이메일을 입력해주세요");
+					return;
+				}
+				
+				if(email.includes("@") == false || email.endsWith(".com") == false){
+					alert("이메일은 @를 포함해야하며 .com로 끝나야 합니다");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/rider/signup"
+					, data:{"loginId":id, "password":password, "name":name, "phone":phone, "email":email}
+					, success:function(data){
+						if(data.result == "success"){
+							alert("회원가입 성공");
+							location.href = "/rider/signin/view";
+						}else if(data.result == "exists"){
+							alert("이미 가입했습니다");
+							location.href = "/rider/signin/view";
+						}else{
+							alert("회원가입 실패");
+						}
+					}
+					, error:function(){
+						alert("회원가입 에러");
+					}				
+				})
+			})
+			
+			// store businessNumber 중복체크
+			var isDuplicatedCheck2 = false;
+			var isDuplicatedId2 = true;
+			
+			$("#duplicatedChecked2").on("click", function(){
+				let businessNumber = $("#storeBusinessNumberInput").val();
+				
+				if(businessNumber == ""){
+					alert("사업자등록번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/store/duplicated_id"
+					, data:{"businessNumber":businessNumber}
+					, success:function(data){
+						isDuplicatedCheck2 = true;
+						
+						if(data.is_duplicated == true){
+							isDuplicatedId2 = true;
+							$("#isDuplicatedId2").removeClass("d-none");
+							$("#avaliableId2").addClass("d-none");
+						}else{
+							isDuplicatedId2 = false;
+							$("#isDuplicatedId2").addClass("d-none");
+							$("#avaliableId2").removeClass("d-none");
+						}
+					}
+					, error:function(){
+						alert("중복체크 에러");
+					}
+				})
+			});
+			
+			// store 회원가입
+			$("#storeSignupBtn").on("click", function(){
+				let businessNumber = $("#storeBusinessNumberInput").val();
+				let password = $("#storePasswordInput").val();
+				let passwordConfirm = $("#storePasswordDoubleInput").val();
+				let name = $("#storeOwnerNameInput").val();
+				let phone = $("#storeOwnerPhoneInput").val();
+				
+				if(businessNumber == ""){
+					alert("사업자등록번호를 입력하세요");
+					return;
+				}
+				
+				if(businessNumber.length != 10 || !$.isNumeric(businessNumber)){
+					alert("사업자등록번호는 10자리이며 숫자만 입력해주세요");
+					return;
+				}
+				
+				if(isDuplicatedCheck2 == false){
+					alert("사업자번호 중복 여부 확인하세요");
+					return;
+				}
+				
+				if(isDuplicatedId2 == true){
+					alert("해당 사업자번호 이미 가입했으며 로그인하세요");
+					location.href="/store/signin/view";
+					return;
+				}
+				
+				if(password.length < 6){
+					alert("비밀번호가 6자 이상이어야 해요");
+					return;
+				}
+				
+				if(passwordConfirm != password){
+					alert("비밀번호 다시 확인해주세요");
+					return;
+				}
+				
+				if(name == ""){
+					alert("대표자 이름을 입력하세요");
+					return;
+				}
+				
+				if(!phone.startsWith("010") || phone.length != 11){
+					alert("010로 시작한 11자리 전화번호를 입력하세요");
+					return;
+				}
+				
+				if(!$.isNumeric(phone)){
+					alert("전화번호 숫자만 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/store/signup"
+					, data:{"businessNumber":businessNumber, "password":password, "name":name, "phone":phone}
+					, success:function(data){
+						if(data.result == "success"){
+							alert("회원가입 성공");
+							location.href = "/store/signin/view";
+						}else{
+							alert("회원가입 실패");
+						}
+					}
+					, error:function(){
+						alert("회원가입 에러");
+					}				
+				})
+			})
+			
+			// userId 중복체크
+			var isDuplicatedCheck1 = false;
+			var isDuplicatedId1 = true;
+			
+			$("#duplicatedChecked1").on("click", function(){
+				let id = $("#userIdInput").val();
+				
+				if(id == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/duplicated_id"
+					, data:{"loginId":id}
+					, success:function(data){
+						isDuplicatedCheck1 = true;
+						
+						if(data.is_duplicated == true){
+							isDuplicatedId1 = true;
+							$("#isDuplicatedId1").removeClass("d-none");
+							$("#avaliableId1").addClass("d-none");
+						}else{
+							isDuplicatedId1 = false;
+							$("#isDuplicatedId1").addClass("d-none");
+							$("#avaliableId1").removeClass("d-none");
+						}
+					}
+					, error:function(){
+						alert("중복체크 에러");
+					}
+				}) 
+			});
+			
+			// user 회원가입
+			$("#userSignupBtn").on("click", function(){
+				let id = $("#userIdInput").val();
+				let password = $("#userPasswordInput").val();
+				let passwordConfirm = $("#userPasswordDoubleInput").val();
+				let name = $("#userNameInput").val();
+				let phone = $("#userPhoneInput").val();
+				let email = $("#userEmailInput").val();
+				let nickName = $("#userNickNameInput").val();
+
+				if(id == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(isDuplicatedCheck1 == false){
+					alert("아이디 중복확인하세요");
+					return;
+				}
+				
+				if(isDuplicatedId1 == true){
+					alert("아이디 중복되었습니다");
+					return;
+				}
+				
+				if(password.length < 6){
+					alert("비밀번호가 6자 이상이어야 해요");
+					return;
+				}
+				
+				if(passwordConfirm != password){
+					alert("비밀번호 다시 확인해주세요");
+					return;
+				}
+				
+				if(name == ""){
+					alert("이름을 입력하세요");
+					return;
+				}
+				
+				if(!phone.startsWith("010") || phone.length != 11){
+					alert("010로 시작한 11자리 전화번호를 입력하세요");
+					return;
+				}
+				
+				if(!$.isNumeric(phone)){
+					alert("전화번호 숫자만 입력하세요");
+					return;
+				}
+
+				if(email == ""){
+					alert("이메일을 입력해주세요");
+					return;
+				}
+				
+				if(email.includes("@") == false || email.endsWith(".com") == false){
+					alert("이메일은 @를 포함해야하며 .com로 끝나야 합니다");
+					return;
+				}
+				
+				if(nickName == ""){
+					alert("닉네임을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/user/signup"
+					, data:{"loginId":id, "password":password, "name":name, "phone":phone, "email":email, "nickName":nickName, "grade":"고마운분"}
+					, success:function(data){
+						if(data.result == "success"){
+							alert("회원가입 성공");
+							location.href = "/user/signin/view";
+						}else if(data.result == "exists"){
+							alert("이미 가입했습니다");
+							location.href = "/user/signin/view";
+						}else{
+							alert("회원가입 실패");
+						}
+					}
+					, error:function(){
+						alert("회원가입 에러");
+					}				
+				})
+			})
 			
 			// identity에 따라서 관련된 div를 숨기기/나타나기
 			$("input[name=identityRadio]").on('change', function() {
