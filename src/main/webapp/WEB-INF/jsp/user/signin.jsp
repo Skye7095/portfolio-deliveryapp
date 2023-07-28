@@ -34,7 +34,7 @@
 			</div>
 			
 			<div class="d-flex justify-content-center align-items-center my-5">
-				<button type="button" class="col-6 btn btn-primary">로그인</button>
+				<button type="button" class="col-6 btn btn-primary" id="signinBtn">로그인</button>
 			</div>
 			
 			<div class="d-flex justify-content-center align-items-end">
@@ -47,5 +47,41 @@
 			</div>
 		</section>
 	</div>
+	
+	<script>
+		$(document).ready(function(){
+			
+			$("#signinBtn").on("click", function(){
+				let id = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(id == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(password == ""){
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/user/signin"
+					, data: {"loginId": id, "password":password}
+					, success: function(data){
+						if(data.result == "success"){
+							location.href="/app/main/view"
+						}else{
+							alert("로그인 실패");
+						}
+					}
+					, error:function(){
+						alert("로그인 에러");
+					}
+				})
+			});
+		})
+	</script>
 </body>
 </html>

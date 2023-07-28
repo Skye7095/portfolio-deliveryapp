@@ -269,8 +269,8 @@
 				let businessNumber = $("#storeBusinessNumberInput").val();
 				let password = $("#storePasswordInput").val();
 				let passwordConfirm = $("#storePasswordDoubleInput").val();
-				let name = $("#storeOwnerNameInput").val();
-				let phone = $("#storeOwnerPhoneInput").val();
+				let ownerName = $("#storeOwnerNameInput").val();
+				let ownerPhone = $("#storeOwnerPhoneInput").val();
 				
 				if(businessNumber == ""){
 					alert("사업자등록번호를 입력하세요");
@@ -303,17 +303,17 @@
 					return;
 				}
 				
-				if(name == ""){
+				if(ownerName == ""){
 					alert("대표자 이름을 입력하세요");
 					return;
 				}
 				
-				if(!phone.startsWith("010") || phone.length != 11){
+				if(!ownerPhone.startsWith("010") || ownerPhone.length != 11){
 					alert("010로 시작한 11자리 전화번호를 입력하세요");
 					return;
 				}
 				
-				if(!$.isNumeric(phone)){
+				if(!$.isNumeric(ownerPhone)){
 					alert("전화번호 숫자만 입력하세요");
 					return;
 				}
@@ -321,7 +321,7 @@
 				$.ajax({
 					type: "post"
 					, url: "/store/signup"
-					, data:{"businessNumber":businessNumber, "password":password, "name":name, "phone":phone}
+					, data:{"businessNumber":businessNumber, "password":password, "ownerName":ownerName, "ownerPhone":ownerPhone}
 					, success:function(data){
 						if(data.result == "success"){
 							alert("회원가입 성공");

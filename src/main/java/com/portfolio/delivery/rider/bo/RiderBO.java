@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.rider.dao.RiderDAO;
+import com.portfolio.delivery.rider.model.Rider;
 
 @Service
 public class RiderBO {
@@ -46,5 +47,14 @@ public class RiderBO {
 		}else { // 중복하지 않음
 			return false;
 		}
+	}
+	
+	// 로그인
+	public Rider getRider(
+			String loginId
+			, String password) {
+		String encryptPW = EncryptUtils.md5(password);
+		
+		return riderDAO.selectRider(loginId, encryptPW);
 	}
 }

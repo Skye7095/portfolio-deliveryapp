@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.store.dao.StoreDAO;
+import com.portfolio.delivery.store.model.Store;
 
 @Service
 public class StoreBO {
@@ -16,13 +17,13 @@ public class StoreBO {
 	public int addStore(
 			String businessNumber
 			, String password
-			, String name
-			, String phone) {
+			, String ownerName
+			, String ownerPhone) {
 		
 		// 비번 암호화
 		String encryptPW = EncryptUtils.md5(password);
 		
-		return storeDAO.insertStore(businessNumber, encryptPW, name, phone);
+		return storeDAO.insertStore(businessNumber, encryptPW, ownerName, ownerPhone);
 	}
 	
 	// businessNumber 중복확인
@@ -34,5 +35,14 @@ public class StoreBO {
 		}else { // 중복하지 않음
 			return false;
 		}
+	}
+	
+	// 로그인
+	public Store getStore(
+			String businessNumber
+			, String password) {
+		String encryptPW = EncryptUtils.md5(password);
+		
+		return storeDAO.selectStore(businessNumber, encryptPW);
 	}
 }

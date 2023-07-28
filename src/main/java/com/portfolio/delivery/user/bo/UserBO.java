@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.user.dao.UserDAO;
+import com.portfolio.delivery.user.model.User;
 
 @Service
 public class UserBO {
@@ -48,5 +49,14 @@ public class UserBO {
 		}else { // 중복하지 않음
 			return false;
 		}
+	}
+	
+	// 로그인
+	public User getUser(
+			String loginId
+			, String password) {
+		String encryptPW = EncryptUtils.md5(password);
+		
+		return userDAO.selectUser(loginId, encryptPW);
 	}
 }
