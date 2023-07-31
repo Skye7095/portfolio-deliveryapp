@@ -12,4 +12,14 @@ public class RiderController {
 	public String RiderSigninView() {
 		return "/rider/signin";
 	}
+	
+	@GetMapping("/mypage/view")
+	public String RiderMypageView() {
+		return "/rider/mypage";
+	}
+	
+	@GetMapping("/history/view")
+	public String RiderHistoryView() {
+		return "/rider/history";
+	}
 }
