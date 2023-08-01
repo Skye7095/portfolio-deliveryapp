@@ -59,4 +59,20 @@ public class UserBO {
 		
 		return userDAO.selectUser(loginId, encryptPW);
 	}
+	
+	// 이름과 번호로 id 찾기
+	public String getUserIDByPhone(
+			String name
+			, String phone) {
+		
+		return userDAO.selectUserIDByPhone(name, phone);
+	}
+	
+	// 이름과 번호로 id 찾기
+	public String getUserIDByEmail(
+			String name
+			, String email) {
+		
+		return userDAO.selectUserIDByEmail(name, email);
+	}
 }

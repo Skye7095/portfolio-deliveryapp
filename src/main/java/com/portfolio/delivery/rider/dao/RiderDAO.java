@@ -29,4 +29,14 @@ public interface RiderDAO {
 	public Rider selectRider(
 			@Param("loginId") String loginId
 			, @Param("password") String password);
+	
+	// 이름과 번호로 id 찾기
+	public String selectRiderIDByPhone(
+			@Param("name") String name
+			, @Param("phone") String phone);
+	
+	// 이름과 번호로 id 찾기
+	public String selectRiderIDByEmail(
+			@Param("name") String name
+			, @Param("email") String email);
 }

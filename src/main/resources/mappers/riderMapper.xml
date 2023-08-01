@@ -68,4 +68,24 @@
 		WHERE
 			`loginId` = #{loginId} AND `password` = #{password}
 	</select>
+	
+	<!-- 이름과 번호로 id 찾기 -->
+	<select id="selectRiderIDByPhone" parameterType="map" resultType="String">
+		SELECT
+			`loginId`
+		FROM
+			`rider`
+		WHERE
+			`name` = #{name} AND `phone` = #{phone}
+	</select>
+	
+	<!-- 이름과 메일로 id 찾기 -->
+	<select id="selectRiderIDByEmail" parameterType="map" resultType="String">
+		SELECT
+			`loginId`
+		FROM
+			`rider`
+		WHERE
+			`name` = #{name} AND `email` = #{email}
+	</select>
 </mapper>

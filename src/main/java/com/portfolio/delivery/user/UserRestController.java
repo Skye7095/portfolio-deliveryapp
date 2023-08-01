@@ -88,4 +88,22 @@ public class UserRestController {
 		
 		return result;
 	}
+	
+	// user 이름과 번호로 id 찾기
+	@PostMapping("/findID/phone")
+	public String userGetIDByPhone(
+			@RequestParam("name") String name
+			, @RequestParam("phone") String phone){
+		
+		return userBO.getUserIDByPhone(name, phone);
+	}
+	
+	// user 이름과 메일로 id 찾기
+	@PostMapping("/findID/email")
+	public String userGetIDByEmail(
+			@RequestParam("name") String name
+			, @RequestParam("email") String email){
+		
+		return userBO.getUserIDByEmail(name, email);
+	}
 }

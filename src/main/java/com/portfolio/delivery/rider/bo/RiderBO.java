@@ -57,4 +57,20 @@ public class RiderBO {
 		
 		return riderDAO.selectRider(loginId, encryptPW);
 	}
+	
+	// 이름과 번호로 id 찾기
+	public String getRiderIDByPhone(
+			String name
+			, String phone) {
+		
+		return riderDAO.selectRiderIDByPhone(name, phone);
+	}
+	
+	// 이름과 번호로 id 찾기
+	public String getRiderIDByEmail(
+			String name
+			, String email) {
+		
+		return riderDAO.selectRiderIDByEmail(name, email);
+	}
 }

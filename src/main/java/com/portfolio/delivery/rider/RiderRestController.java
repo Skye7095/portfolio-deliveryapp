@@ -86,4 +86,22 @@ public class RiderRestController {
 		}
 		return result;
 	}
+	
+	// 이름과 번호로 id 찾기
+	@PostMapping("/findID/phone")
+	public String riderGetIDByPhone(
+			@RequestParam("name") String name
+			, @RequestParam("phone") String phone){
+
+		return riderBO.getRiderIDByPhone(name, phone);
+	}
+	
+	// 이름과 메일로 id 찾기
+	@PostMapping("/findID/email")
+	public String riderGetIDByEmail(
+			@RequestParam("name") String name
+			, @RequestParam("email") String email){
+		
+		return riderBO.getRiderIDByEmail(name, email);
+	}
 }

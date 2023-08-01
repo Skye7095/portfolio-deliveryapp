@@ -47,18 +47,14 @@
 					</div>
 				</div>
 				
-				<div class="my-3 container userPhoneBox">
+				<div class="my-3 container">
 					<input type="text" class="form-control my-3" placeholder="이름" id="userNameInput">
 					<input type="text" class="form-control my-3" placeholder="휴대폰번호" id="userPhoneInput">
-				</div>
-				
-				<div class="my-3 container userEmailBox d-none">
-					<input type="text" class="form-control my-3" placeholder="이름" id="userNameInput">
-					<input type="text" class="form-control my-3" placeholder="이메일" id="userEmailInput">
+					<input type="text" class="form-control my-3 d-none" placeholder="이메일" id="userEmailInput">
 				</div>
 				
 				<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-					<button type="button" class="col-6 btn btn-primary">ID 찾기</button>
+					<button type="button" class="col-6 btn btn-primary" id="getUserIDBtn">ID 찾기</button>
 				</div>
 			</article>
 			
@@ -75,18 +71,14 @@
 					</div>
 				</div>
 				
-				<div class="my-3 container riderPhoneBox">
+				<div class="my-3 container">
 					<input type="text" class="form-control my-3" placeholder="이름" id="riderNameInput">
 					<input type="text" class="form-control my-3" placeholder="휴대폰번호" id="riderPhoneInput">
-				</div>
-				
-				<div class="my-3 container riderEmailBox d-none">
-					<input type="text" class="form-control my-3" placeholder="이름" id="riderNameInput">
-					<input type="text" class="form-control my-3" placeholder="이메일" id="riderEmailInput">
+					<input type="text" class="form-control my-3 d-none" placeholder="이메일" id="riderEmailInput">
 				</div>
 				
 				<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-					<button type="button" class="col-6 btn btn-primary">ID 찾기</button>
+					<button type="button" class="col-6 btn btn-primary" id="getRiderIDBtn">ID 찾기</button>
 				</div>
 			</article>
 		</section>
@@ -95,24 +87,152 @@
 	<script>
 		$(document).ready(function(){
 			
+			// rider 이름과 번호로 id 찾기
+			$("#getRiderIDBtn").on("click", function(){
+				if($("input[name=riderMethodRadio]:checked").val() == 'riderPhone'){
+					let name = $("#riderNameInput").val();
+					let phone = $("#riderPhoneInput").val();
+					
+					if(name == ''){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(phone == ''){
+						alert("번호를 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url: "/rider/findID/phone"
+						, data: {"name":name, "phone":phone}
+						, success:function(data){
+							if(data == 0){
+								alert("회원정보 확인해주세요");
+							}else{
+								alert("회원아이디: " + data);
+								location.href="/rider/signin/view";
+							}
+						}
+						, error:function(){
+							alert("ID 찾기 에러")
+						}
+					})
+				}else if($("input[name=riderMethodRadio]:checked").val() == 'riderEmail'){
+					let name = $("#riderNameInput").val();
+					let email = $("#riderEmailInput").val();
+					
+					if(name == ''){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(email == ''){
+						alert("이메일을 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url: "/rider/findID/email"
+						, data: {"name":name, "email":email}
+						, success:function(data){
+							if(data == 0){
+								alert("회원정보 확인해주세요");
+							}else{
+								alert("회원아이디: " + data);
+								location.href="/rider/signin/view";
+							}
+						}
+						, error:function(){
+							alert("ID 찾기 에러")
+						}
+					})
+				}
+				
+			})
+			
+			// user 이름과 번호로 id 찾기
+			$("#getUserIDBtn").on("click", function(){
+				if($("input[name=userMethodRadio]:checked").val() == 'userPhone'){
+					let name = $("#userNameInput").val();
+					let phone = $("#userPhoneInput").val();
+					
+					if(name == ''){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(phone == ''){
+						alert("번호를 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url: "/user/findID/phone"
+						, data: {"name":name, "phone":phone}
+						, success:function(data){
+							if(data == 0){
+								alert("회원정보 확인해주세요");
+							}else{
+								alert("회원아이디: " + data);
+								location.href="/user/signin/view";
+							}
+						}
+						, error:function(){
+							alert("ID 찾기 에러")
+						}
+					})
+				}else if($("input[name=userMethodRadio]:checked").val() == 'userEmail'){
+					let name = $("#userNameInput").val();
+					let email = $("#userEmailInput").val();
+					
+					if(name == ''){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(email == ''){
+						alert("이메일을 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url: "/user/findID/email"
+						, data: {"name":name, "email":email}
+						, success:function(data){
+							if(data == 0){
+								alert("회원정보 확인해주세요");
+							}else{
+								alert("회원아이디: " + data);
+								location.href="/user/signin/view";
+							}
+						}
+						, error:function(){
+							alert("ID 찾기 에러")
+						}
+					})
+				}
+				
+			})
+			
 			// phone/email에 따라서 관련된 div를 숨기기/나타나기
 			$("input[name=userMethodRadio]").on('change', function() {
                 if($(this).val() == 'userPhone') {
-                	$(".userPhoneBox").removeClass("d-none");
-        			$(".userEmailBox").addClass("d-none");
+                	$("#userPhoneInput").removeClass("d-none");
+        			$("#userEmailInput").addClass("d-none");
                 } else{
-                    $(".userPhoneBox").addClass("d-none");
-                    $(".userEmailBox").removeClass("d-none");
+                    $("#userPhoneInput").addClass("d-none");
+                    $("#userEmailInput").removeClass("d-none");
                 }
             });
 			
 			$("input[name=riderMethodRadio]").on('change', function() {
-                if($(this).val() == 'userPhone') {
-                	$(".riderPhoneBox").removeClass("d-none");
-        			$(".riderEmailBox").addClass("d-none");
+                if($(this).val() == 'riderPhone') {
+                	$("#riderPhoneInput").removeClass("d-none");
+        			$("#riderEmailInput").addClass("d-none");
                 } else{
-                    $(".riderPhoneBox").addClass("d-none");
-                    $(".riderEmailBox").removeClass("d-none");
+                    $("#riderPhoneInput").addClass("d-none");
+                    $("#riderEmailInput").removeClass("d-none");
                 }
             });
 			
