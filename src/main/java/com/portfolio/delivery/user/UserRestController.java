@@ -106,4 +106,40 @@ public class UserRestController {
 		
 		return userBO.getUserIDByEmail(name, email);
 	}
+	
+	// user 이름과 번호로 비번 리셋하기
+	@PostMapping("/resetPW/phone")
+	public Map<String, String> resetpwByPhone(
+			@RequestParam("name") String name
+			, @RequestParam("phone") String phone) {
+		String newPW = userBO.getUserPWByPhone(name, phone);
+		
+		Map<String, String> result = new HashMap<>();
+		if(newPW == "0") {	
+			result.put("result", "fail");
+		}else {
+			result.put("result", "success");
+			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
+	
+	// user 이름과 번호로 비번 리셋하기
+	@PostMapping("/resetPW/email")
+	public Map<String, String> resetpwByEmaile(
+			@RequestParam("name") String name
+			, @RequestParam("email") String email) {
+		String newPW = userBO.getUserPWByEmail(name, email);
+		
+		Map<String, String> result = new HashMap<>();
+		if(newPW == "0") {	
+			result.put("result", "fail");
+		}else {
+			result.put("result", "success");
+			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
 }

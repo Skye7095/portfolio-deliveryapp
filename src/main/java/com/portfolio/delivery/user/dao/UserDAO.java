@@ -41,4 +41,19 @@ public interface UserDAO {
 	public String selectUserIDByEmail(
 			@Param("name") String name
 			, @Param("email") String email);
+	
+	// user 비밀번호 찾기 - phone
+	public User selectUserPWByPhone(
+			@Param("name") String name
+			, @Param("phone") String phone);
+	
+	// user 비밀번호 찾기 - phone
+	public User selectUserPWByEmail(
+			@Param("name") String name
+			, @Param("email") String email);
+	
+	// user 비밀번호 찾기 후 랜덤 비번 생성한 뒤 기존 비번 update
+	public int updatedUserPW(
+			@Param("userId") int userId
+			, @Param("newPW") String newPW);
 }

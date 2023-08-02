@@ -94,4 +94,52 @@
 		WHERE
 			`name` = #{name} AND `email` = #{email}
 	</select>
+	
+	<!-- 이름과 전화번호를 통해 비번 리셋 -->
+	<select id="selectUserPWByPhone" parameterType="map" resultType="com.portfolio.delivery.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `nickName`
+			, `grade`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`name` = #{name} AND `phone` = #{phone}
+	</select>
+	
+	<!-- 이름과 전화번호를 통해 비번 리셋 -->
+	<select id="selectUserPWByEmail" parameterType="map" resultType="com.portfolio.delivery.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `nickName`
+			, `grade`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`name` = #{name} AND `email` = #{email}
+	</select>
+	
+	<!-- 비밀번호 리셋한 후 update -->
+	<update id="updatedUserPW" parameterType="map">
+		UPDATE
+			`user`
+		SET
+			`password` = #{newPW}
+		WHERE
+			`id` = #{userId}
+	</update>
 </mapper>

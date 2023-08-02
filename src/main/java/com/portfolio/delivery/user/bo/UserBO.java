@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.portfolio.delivery.common.EncryptUtils;
+import com.portfolio.delivery.common.randomPW;
 import com.portfolio.delivery.user.dao.UserDAO;
 import com.portfolio.delivery.user.model.User;
 
@@ -74,5 +75,55 @@ public class UserBO {
 			, String email) {
 		
 		return userDAO.selectUserIDByEmail(name, email);
+	}
+	
+	// 이름과 번호로 비번 리셋하기
+	public String getUserPWByPhone(
+			String name
+			, String phone) {
+		// 랜덤비번 생성
+		String randPW = randomPW.randomNum();
+		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
+
+		User user =  userDAO.selectUserPWByPhone(name, phone);
+		int userId = user.getId();
+		
+		// 1단계:update 성공여부 판단하기
+		int count = userDAO.updatedUserPW(userId, encryptNewPW);
+		
+		//  2단계: update된 비밀번호 전달하기
+		String newPW = "0";
+		if(count == 1) {
+			newPW = randPW;
+		}else {
+			newPW = "0";
+		}
+		
+		return newPW;
+	}
+	
+	// 이름과 번호로 비번 리셋하기
+	public String getUserPWByEmail(
+			String name
+			, String email) {
+		// 랜덤비번 생성
+		String randPW = randomPW.randomNum();
+		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
+
+		User user =  userDAO.selectUserPWByEmail(name, email);
+		int userId = user.getId();
+		
+		// 1단계:update 성공여부 판단하기
+		int count = userDAO.updatedUserPW(userId, encryptNewPW);
+		
+		//  2단계: update된 비밀번호 전달하기
+		String newPW = "0";
+		if(count == 1) {
+			newPW = randPW;
+		}else {
+			newPW = "0";
+		}
+		
+		return newPW;
 	}
 }
