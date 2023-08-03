@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.portfolio.delivery.common.EncryptUtils;
+import com.portfolio.delivery.common.randomPW;
 import com.portfolio.delivery.rider.dao.RiderDAO;
 import com.portfolio.delivery.rider.model.Rider;
+import com.portfolio.delivery.user.model.User;
 
 @Service
 public class RiderBO {
@@ -72,5 +74,61 @@ public class RiderBO {
 			, String email) {
 		
 		return riderDAO.selectRiderIDByEmail(name, email);
+	}
+	
+	// 이름과 번호로 비번 리셋하기
+	public String getRiderPWByPhone(
+			String name
+			, String phone) {
+		// 랜덤비번 생성
+		String randPW = randomPW.randomNum();
+		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
+
+		Rider rider =  riderDAO.selectRiderPWByPhone(name, phone);
+		int riderId = 0;
+		if(rider != null) {
+			riderId = rider.getId();
+		}
+		
+		// 1단계:update 성공여부 판단하기
+		int count = riderDAO.updatedRiderPW(riderId, encryptNewPW);
+		
+		//  2단계: update된 비밀번호 전달하기
+		String newPW = "0";
+		if(count == 1) {
+			newPW = randPW;
+		}else {
+			newPW = "0";
+		}
+		
+		return newPW;
+	}
+	
+	// 이름과 이메일 비번 리셋하기
+	public String getRiderPWByEmail(
+			String name
+			, String email) {
+		// 랜덤비번 생성
+		String randPW = randomPW.randomNum();
+		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
+
+		Rider rider =  riderDAO.selectRiderPWByEmail(name, email);
+		int riderId = 0;
+		if(rider != null) {
+			riderId = rider.getId();
+		}
+		
+		// 1단계:update 성공여부 판단하기
+		int count = riderDAO.updatedRiderPW(riderId, encryptNewPW);
+		
+		//  2단계: update된 비밀번호 전달하기
+		String newPW = "0";
+		if(count == 1) {
+			newPW = randPW;
+		}else {
+			newPW = "0";
+		}
+		
+		return newPW;
 	}
 }

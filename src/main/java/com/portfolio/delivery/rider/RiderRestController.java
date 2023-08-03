@@ -104,4 +104,42 @@ public class RiderRestController {
 		
 		return riderBO.getRiderIDByEmail(name, email);
 	}
+	
+	// 이름과 번호로 비번 리셋하기
+	@PostMapping("/resetPW/phone")
+	public Map<String, String> riderGetPWByPhone(
+			@RequestParam("name") String name
+			, @RequestParam("phone") String phone) {
+		
+		String newPW = riderBO.getRiderPWByPhone(name, phone);
+		
+		Map<String, String> result = new HashMap<>();
+		if(newPW == "0") {	
+			result.put("result", "fail");
+		}else {
+			result.put("result", "success");
+			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
+	
+	// 이름과 이메일 비번 리셋하기
+	@PostMapping("/resetPW/email")
+	public Map<String, String> riderGetPWByEmail(
+			@RequestParam("name") String name
+			, @RequestParam("email") String email) {
+		
+		String newPW = riderBO.getRiderPWByEmail(name, email);
+		
+		Map<String, String> result = new HashMap<>();
+		if(newPW == "0") {	
+			result.put("result", "fail");
+		}else {
+			result.put("result", "success");
+			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
 }

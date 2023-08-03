@@ -93,13 +93,74 @@
 				</div>
 				
 				<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-					<button type="button" class="col-6 btn btn-primary">비번 리셋</button>
+					<button type="button" class="col-6 btn btn-primary" id="riderResetPWBtn">비번 리셋</button>
 				</div>
 			</article>
 		</section>
 	</div>
 	<script>
 		$(document).ready(function(){
+			
+			// rider 비번 리셋
+			$("#riderResetPWBtn").on("click", function(){
+				let name = $("#riderNameInput").val();
+				let phone = $("#riderPhoneInput").val();
+				let email = $("#riderEmailInput").val();
+				
+				if($("input[name=riderMethodRadio]:checked").val() == "riderPhone"){
+					if(name == ""){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(phone == ""){
+						alert("전화번호를 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url:"/rider/resetPW/phone"
+						, data:{"name":name, "phone":phone}
+						, success:function(data){
+							if(data.result == "success"){
+								alert("임시비번: " + data.newPW);
+								location.href="/rider/signin/view";
+							}else{
+								alert("비밀번호 리셋 실패. 이름과 번호를 다시 확인해주세요")
+							}
+						}
+						, error:function(){
+							alert("비밀번호 리셋 에러");
+						}
+					});
+				}else{
+					if(name == ""){
+						alert("이름을 입력하세요");
+						return;
+					}
+					if(email == ""){
+						alert("이메일을 입력하세요");
+						return;
+					}
+					
+					$.ajax({
+						type:"post"
+						, url:"/rider/resetPW/email"
+						, data:{"name":name, "email":email}
+						, success:function(data){
+							if(data.result == "success"){
+								alert("임시비번: " + data.newPW);
+								location.href="/rider/signin/view";
+							}else{
+								alert("비밀번호 리셋 실패. 이름과 이메일을 다시 확인해주세요")
+							}
+						}
+						, error:function(){
+							alert("비밀번호 리셋 에러");
+						}
+					});
+				}
+			});
 			
 			// user 비번 리셋
 			$("#userResetPWBtn").on("click", function(){
@@ -126,7 +187,7 @@
 								alert("임시비번: " + data.newPW);
 								location.href="/user/signin/view";
 							}else{
-								alert("비밀번호 리셋 실패")
+								alert("비밀번호 리셋 실패. 이름과 번호를 다시 확인해주세요")
 							}
 						}
 						, error:function(){
@@ -152,7 +213,7 @@
 								alert("임시비번: " + data.newPW);
 								location.href="/user/signin/view";
 							}else{
-								alert("비밀번호 리셋 실패")
+								alert("비밀번호 리셋 실패. 이름과 이메일을 다시 확인해주세요")
 							}
 						}
 						, error:function(){
@@ -174,7 +235,7 @@
             });
 			
 			$("input[name=riderMethodRadio]").on('change', function() {
-                if($(this).val() == 'userPhone') {
+                if($(this).val() == 'riderPhone') {
                 	$("#riderPhoneInput").removeClass("d-none");
         			$("#riderEmailInput").addClass("d-none");
                 } else{

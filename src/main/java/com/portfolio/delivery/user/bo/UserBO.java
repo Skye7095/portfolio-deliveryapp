@@ -86,7 +86,10 @@ public class UserBO {
 		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
 
 		User user =  userDAO.selectUserPWByPhone(name, phone);
-		int userId = user.getId();
+		int userId = 0;
+		if(user != null) {
+			userId = user.getId();
+		}
 		
 		// 1단계:update 성공여부 판단하기
 		int count = userDAO.updatedUserPW(userId, encryptNewPW);
@@ -95,8 +98,6 @@ public class UserBO {
 		String newPW = "0";
 		if(count == 1) {
 			newPW = randPW;
-		}else {
-			newPW = "0";
 		}
 		
 		return newPW;
@@ -111,7 +112,10 @@ public class UserBO {
 		String encryptNewPW = EncryptUtils.md5(randPW); // 임시비번 암호화
 
 		User user =  userDAO.selectUserPWByEmail(name, email);
-		int userId = user.getId();
+		int userId = 0;
+		if(user != null) {
+			userId = user.getId();
+		}
 		
 		// 1단계:update 성공여부 판단하기
 		int count = userDAO.updatedUserPW(userId, encryptNewPW);

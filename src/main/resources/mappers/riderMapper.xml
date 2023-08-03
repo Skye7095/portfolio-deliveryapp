@@ -88,4 +88,47 @@
 		WHERE
 			`name` = #{name} AND `email` = #{email}
 	</select>
+	
+	<!-- 이름과 전화번호를 통해 비번 리셋 -->
+	<select id="selectRiderPWByPhone" parameterType="map" resultType="com.portfolio.delivery.rider.model.Rider">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`rider`
+		WHERE
+			`name` = #{name} AND `phone` = #{phone}
+	</select>
+	<!-- 이름과 이메일을 통해 비번 리셋 -->
+	<select id="selectRiderPWByEmail" parameterType="map" resultType="com.portfolio.delivery.rider.model.Rider">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`rider`
+		WHERE
+			`name` = #{name} AND `email` = #{email}
+	</select>
+	
+	<!-- 비밀번호 리셋한 후 update -->
+	<update id="updatedRiderPW" parameterType="map">
+		UPDATE
+			`rider`
+		SET
+			`password` = #{newPW}
+		WHERE
+			`id` = #{riderId}
+	</update>
 </mapper>

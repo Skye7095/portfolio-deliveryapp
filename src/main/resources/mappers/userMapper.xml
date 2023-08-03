@@ -114,7 +114,7 @@
 			`name` = #{name} AND `phone` = #{phone}
 	</select>
 	
-	<!-- 이름과 전화번호를 통해 비번 리셋 -->
+	<!-- 이름과 이메일을 통해 비번 리셋 -->
 	<select id="selectUserPWByEmail" parameterType="map" resultType="com.portfolio.delivery.user.model.User">
 		SELECT
 			`id`
