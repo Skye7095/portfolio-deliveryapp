@@ -22,4 +22,15 @@ public interface StoreDAO {
 	public Store selectStore(
 			@Param("businessNumber") String businessNumber
 			, @Param("password") String password);
+	
+	// 비번 찾기
+	public Store selectStorePW(
+			@Param("businessNumber") String businessNumber
+			, @Param("ownerName") String ownerName
+			, @Param("ownerPhone") String ownerPhone);
+	
+	// 리셋 비번 변경
+	public int updatedStorePW(
+			@Param("storeId") int storeId
+			, @Param("newPW") String newPW);
 }

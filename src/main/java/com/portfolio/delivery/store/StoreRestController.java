@@ -83,4 +83,24 @@ public class StoreRestController {
 		
 		return result;
 	}
+	
+	// 비번 리셋하기
+	@PostMapping("/resetPW")
+	public Map<String, String> storeResetPW(
+			@RequestParam("businessNumber") String businessNumber
+			, @RequestParam("ownerName") String ownerName
+			, @RequestParam("ownerPhone") String ownerPhone){
+		
+		String newPW = storeBO.getStorePW(businessNumber, ownerName, ownerPhone);
+		
+		Map<String, String> result = new HashMap<>();
+		if(newPW == "0") {	
+			result.put("result", "fail");
+		}else {
+			result.put("result", "success");
+			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
 }

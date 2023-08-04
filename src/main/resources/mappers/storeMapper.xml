@@ -53,4 +53,30 @@
 		WHERE
 			`businessNumber` = #{businessNumber} AND `password` = #{password}
 	</select>
+	
+	<!-- 비번 찾기 -->
+	<select id="selectStorePW" parameterType="map" resultType="com.portfolio.delivery.store.model.Store">
+		SELECT
+			`id`
+			, `businessNumber`
+			, `password`
+			, `ownerName`
+			, `ownerPhone`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`store`
+		WHERE
+			`businessNumber` = #{businessNumber} AND `ownerName` = #{ownerName} AND `ownerPhone` = #{ownerPhone}
+	</select>
+	
+	<!-- 비번 update -->
+	<update id="updatedStorePW" parameterType="map">
+		UPDATE
+			`store`
+		SET
+			`password` = #{newPW}
+		WHERE
+			`id` = #{storeId}
+	</update>
 </mapper>

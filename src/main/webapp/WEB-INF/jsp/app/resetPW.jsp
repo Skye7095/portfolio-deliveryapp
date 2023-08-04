@@ -69,7 +69,7 @@
 				</div>
 				
 				<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-					<button type="button" class="col-6 btn btn-primary">비번 리셋</button>
+					<button type="button" class="col-6 btn btn-primary" id="storeResetPWBtn">비번 리셋</button>
 				</div>
 			</article>
 			
@@ -100,6 +100,44 @@
 	</div>
 	<script>
 		$(document).ready(function(){
+			
+			// store 비번 리셋
+			$("#storeResetPWBtn").on("click", function(){
+				let businessNumber = $("#storeBusinessNumberInput").val();
+				let ownerName = $("#storeOwnerInput").val();
+				let ownerPhone = $("#storePhoneInput").val();
+				
+				if(businessNumber == ""){
+					alert("사업자등록번호를 입력해주세요");
+					return;
+				}
+				if(ownerName == ""){
+					alert("대표자 이름을 입력해주세요");
+					return;
+				}
+				if(ownerPhone == ""){
+					alert("대표자 전화번호를 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/store/resetPW"
+					, data:{"businessNumber":businessNumber, "ownerName":ownerName, "ownerPhone":ownerPhone}
+					, success:function(data){
+						if(data.result == "success"){
+							alert("임시비번 : " + data.newPW);
+							location.href="/store/signin/view";
+						}else{
+							alert("비번 리셋 실패. 각 항목 다시 확인해주세요");
+						}
+					}
+					, error:function(){
+						alert("비번리셋 에러");
+					}
+				})
+			})
+			
 			
 			// rider 비번 리셋
 			$("#riderResetPWBtn").on("click", function(){
