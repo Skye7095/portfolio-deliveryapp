@@ -130,4 +130,40 @@ public class UserBO {
 		
 		return newPW;
 	}
+	
+	// id로 user 모든 정보 불러오기
+	public User getUserById(int id) {
+		return userDAO.selectUserById(id);
+	}
+	
+	// 닉네임 변경
+	public int updatedNickName(
+			int id
+			, String nickName) {
+		return userDAO.updatedNickName(id, nickName);
+	}
+	
+	// 이메일 변경
+	public int updatedEmail(
+			int id
+			, String email) {
+		return userDAO.updatedEmail(id, email);
+	}
+	
+	// 이메일 중복 여부
+	public int sameEmailCount(String email) {
+		return userDAO.sameEmail(email);
+	}
+	
+	// 번호 변경
+	public int updatedPhone(
+			int id
+			, String phone) {
+		return userDAO.updatedPhone(id, phone);
+	}
+	
+	// 번호 중복 여부
+	public int samePhoneCount(String phone) {
+		return userDAO.samePhone(phone);
+	}
 }

@@ -127,7 +127,7 @@ public class UserRestController {
 	
 	// user 이름과 번호로 비번 리셋하기
 	@PostMapping("/resetPW/email")
-	public Map<String, String> resetpwByEmaile(
+	public Map<String, String> resetpwByEmail(
 			@RequestParam("name") String name
 			, @RequestParam("email") String email) {
 		String newPW = userBO.getUserPWByEmail(name, email);
@@ -138,6 +138,84 @@ public class UserRestController {
 		}else {
 			result.put("result", "success");
 			result.put("newPW", newPW);
+		}
+		
+		return result;
+	}
+	
+	// user 닉네임 변경
+	@PostMapping("/nickNameUpdate")
+	public Map<String, String> nickNameUpdate(
+			@RequestParam("nickName") String nickName
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("userId");
+		
+		int count = userBO.updatedNickName(id, nickName);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	// user 이메일 변경
+	@PostMapping("/emailUpdate")
+	public Map<String, String> emailUpdate(
+			@RequestParam("email") String email
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("userId");
+		
+		int count = userBO.updatedEmail(id, email);
+		
+		int sameEmail = userBO.sameEmailCount(email);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		
+		if(sameEmail == 1) {
+			if(count == 1) {
+				result.put("result", "success");
+			}
+		}else {
+			result.put("result", "fail");
+		}
+//		if(count == 1 && sameEmail == 1) {
+//			result.put("result", "success");
+//		}else {
+//			result.put("result", "fail");
+//		}
+		
+		return result;
+	}
+	
+	// user 번호 변경
+	@PostMapping("/phoneUpdate")
+	public Map<String, String> phoneUpdate(
+			@RequestParam("phone") String phone
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("userId");
+		
+		int count = userBO.updatedPhone(id, phone);
+		
+		int samePhone = userBO.samePhoneCount(phone);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1 && samePhone == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
 		}
 		
 		return result;

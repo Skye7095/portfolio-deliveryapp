@@ -41,7 +41,7 @@
 					<div class="d-flex justify-content-between align-items-center">
 						<span class="font-weight-bold">닉네임</span>
 						<div class="d-flex align-items-center">
-							<span class="text-secondary" style="font-size:12px">홍길동</span>
+							<span class="text-secondary" style="font-size:12px">${userList.nickName }</span>
 							<span class="text-secondary"> ></span>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 					<div class="d-flex justify-content-between align-items-center">
 						<span class="font-weight-bold">이메일</span>
 						<div class="d-flex align-items-center">
-							<span class="text-secondary" style="font-size:12px">hongildong@naver.com</span>
+							<span class="text-secondary" style="font-size:12px">${userList.email }</span>
 							<span class="text-secondary"> ></span>
 						</div>
 					</div>
@@ -93,9 +93,9 @@
 	    <div class="modal-content">
 	    	<div class="modal-body">
 	    		<h5 class="text-center">닉네임 변경</h5>
-	    		<input type="text" class="form-control" placeholder="홍길동">
+	    		<input type="text" class="form-control" placeholder="${userList.nickName }" id="nickNameInput">
 	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
+	    		<button type="button" class="btn btn-block btn-primary" id="nickNameBtn">변경완료</button>
 	    	</div>
 	    </div>
 	  </div>
@@ -107,9 +107,9 @@
 	    <div class="modal-content">
 	    	<div class="modal-body">
 	    		<h5 class="text-center">이메일 변경</h5>
-	    		<input type="text" class="form-control" placeholder="hongildong@naver.com">
+	    		<input type="text" class="form-control" placeholder="${userList.email }" id="emailInput">
 	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
+	    		<button type="button" class="btn btn-block btn-primary" id="emailBtn">변경완료</button>
 	    	</div>
 	    </div>
 	  </div>
@@ -143,9 +143,9 @@
 	    <div class="modal-content">
 	    	<div class="modal-body">
 	    		<h5 class="text-center">휴대폰 번호 변경</h5>
-	    		<input type="text" class="form-control" placeholder="010-1234-5678">
+	    		<input type="text" class="form-control" placeholder="${userList.phone }" id="phoneInput">
 	    		<br>
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
+	    		<button type="button" class="btn btn-block btn-primary" id="phoneBtn">변경완료</button>
 	    	</div>
 	    </div>
 	  </div>
@@ -153,6 +153,86 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			// 번호 변경
+			$("#phoneBtn").on('click', function(){
+				let phone = $("#phoneInput").val();
+				
+				if(phone == ""){
+					alert("수정할 번호를 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/user/phoneUpdate"
+					, data:{"phone":phone}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						}else{
+							alert("수정 실패. 이미 사용중인 번호입니다. 다른 번호 입력해주세요");
+							return;
+						}
+					}
+					, error:function(){
+						alert("수정 에러");
+					}
+				})
+			})
+			
+			// 이메일 변경
+			$("#emailBtn").on('click', function(){
+				let email = $("#emailInput").val();
+				
+				if(email == ""){
+					alert("수정할 이메일을 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/user/emailUpdate"
+					, data:{"email":email}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						}else{
+							alert("수정 실패. 이미 사용중인 이메일입니다. 다른 이메일 입력해주세요");
+							return;
+						}
+					}
+					, error:function(){
+						alert("수정 에러");
+					}
+				})
+			})
+			
+			// 닉네임 변경
+			$("#nickNameBtn").on('click', function(){
+				let nickName = $("#nickNameInput").val();
+				
+				if(nickName == ""){
+					alert("수정할 닉네임을 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post"
+					, url: "/user/nickNameUpdate"
+					, data:{"nickName":nickName}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						}else{
+							alert("수정 실패");
+						}
+					}
+					, error:function(){
+						alert("수정 에러");
+					}
+				})
+			})
 			
 			// 비번 변경 > 입력시 눈 보이기/ 숨기기 이벤트
 			$("#pwEyeBtnNow").on('click',function(){

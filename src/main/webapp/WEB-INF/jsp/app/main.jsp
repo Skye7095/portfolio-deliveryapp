@@ -99,7 +99,7 @@
 			<img width="35" src="/static/images/history.png">
 		</button>
 		<button type="button" class="btn footerBtn">
-			<img width="35" src="/static/images/info.png">
+			<img width="35" src="/static/images/info.png" id="userInfoBtn">
 		</button>
 	</footer>
 	
@@ -161,6 +161,10 @@
 	</div>
 	<script>
 		$(document).ready(function(){
+			$("#userInfoBtn").on('click', function(){
+				location.href="/user/info/view";
+			})
+			
 			$("#addressModifyBtn").on("click", function(){
 				$("#addressBtnModal").modal("hide");
 			})

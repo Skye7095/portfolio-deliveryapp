@@ -52,8 +52,32 @@ public interface UserDAO {
 			@Param("name") String name
 			, @Param("email") String email);
 	
+	// id로 user 모든 정보 불러오기
+	public User selectUserById(@Param("userId") int userId);
+	
 	// user 비밀번호 찾기 후 랜덤 비번 생성한 뒤 기존 비번 update
 	public int updatedUserPW(
 			@Param("userId") int userId
 			, @Param("newPW") String newPW);
+	
+	// 닉네임 변경
+	public int updatedNickName(
+			@Param("userId") int userId
+			, @Param("nickName") String nickName);
+	
+	// 이메일 변경
+	public int updatedEmail(
+			@Param("userId") int userId
+			, @Param("email") String email);
+	
+	// 이메일 중복 여부
+	public int sameEmail(@Param("email") String email);
+	
+	// 번호 변경
+	public int updatedPhone(
+			@Param("userId") int userId
+			, @Param("phone") String phone);
+	
+	// 번호 중복 여부
+	public int samePhone(@Param("phone") String phone);
 }

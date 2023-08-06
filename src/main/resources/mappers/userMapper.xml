@@ -133,6 +133,25 @@
 			`name` = #{name} AND `email` = #{email}
 	</select>
 	
+	<!-- id로 user 모든 정보 불러오리  -->
+	<select id="selectUserById" parameterType="int" resultType="com.portfolio.delivery.user.model.User">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `nickName`
+			, `grade`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{userId}
+	</select>
+	
 	<!-- 비밀번호 리셋한 후 update -->
 	<update id="updatedUserPW" parameterType="map">
 		UPDATE
@@ -142,4 +161,54 @@
 		WHERE
 			`id` = #{userId}
 	</update>
+	
+	<!-- 닉네임 업데이트 -->
+	<update id="updatedNickName" parameterType="map">
+		UPDATE
+			`user`
+		SET
+			`nickName` = #{nickName}
+		WHERE
+			`id` = #{userId}
+	</update>
+	
+	<!-- 이메일 업데이트 -->
+	<update id="updatedEmail" parameterType="map">
+		UPDATE
+			`user`
+		SET
+			`email` = #{email}
+		WHERE
+			`id` = #{userId}
+	</update>
+	
+	<!-- 동일 이메일 수량 -->
+	<select id="sameEmail" parameterType="String" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`user`
+		WHERE
+			`email` = #{email}
+	</select>
+	
+	<!-- 번호 업데이트 -->
+	<update id="updatedPhone" parameterType="map">
+		UPDATE
+			`user`
+		SET
+			`phone` = #{phone}
+		WHERE
+			`id` = #{userId}
+	</update>
+	
+	<!-- 동일 번호 수량 -->
+	<select id="samePhone" parameterType="String" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`user`
+		WHERE
+			`phone` = #{phone}
+	</select>
 </mapper>
