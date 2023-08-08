@@ -107,7 +107,12 @@
 	    <div class="modal-content">
 	    	<div class="modal-body">
 	    		<h5 class="text-center">이메일 변경</h5>
-	    		<input type="text" class="form-control" placeholder="${userList.email }" id="emailInput">
+	    		<div class="d-flex justify-content-between">
+	    			<input type="text" class="form-control mr-1" placeholder="${userList.email }" id="emailInput">
+	    			<button type="button" class="btn btn-sm btn-success" id="emailDuplicatedChecked">중복확인</button>
+	    		</div>
+	    		<span class="text-success d-none ml-5" id="avaliableEmail">사용가능한 이메일입니다.</span>
+				<span class="text-danger d-none ml-5" id="duplicatedEmail">중복된 이메일입니다.</span>
 	    		<br>
 	    		<button type="button" class="btn btn-block btn-primary" id="emailBtn">변경완료</button>
 	    	</div>
@@ -143,7 +148,12 @@
 	    <div class="modal-content">
 	    	<div class="modal-body">
 	    		<h5 class="text-center">휴대폰 번호 변경</h5>
-	    		<input type="text" class="form-control" placeholder="${userList.phone }" id="phoneInput">
+	    		<div class="d-flex justify-content-between">
+	    			<input type="text" class="form-control mr-1" placeholder="${userList.phone }" id="phoneInput">
+	    			<button type="button" class="btn btn-sm btn-success" id="phoneDuplicatedChecked">중복확인</button>
+	    		</div>
+	    		<span class="text-success d-none ml-5" id="avaliablePhone">사용가능한 번호입니다.</span>
+				<span class="text-danger d-none ml-5" id="duplicatedPhone">중복된 번호입니다.</span>
 	    		<br>
 	    		<button type="button" class="btn btn-block btn-primary" id="phoneBtn">변경완료</button>
 	    	</div>
@@ -154,14 +164,59 @@
 	<script>
 		$(document).ready(function(){
 			
+			// 번호 중복 체크
+			var phoneDuplicatedCheck = false;
+			var phoneDuplicated = true;
+			
+			$("#phoneDuplicatedChecked").on("click", function(){
+				let phone = $("#phoneInput").val();
+				
+				if(!phone.startsWith("010") || phone.length != 11){
+					alert("010로 시작한 11자리 전화번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/duplicated_phone"
+					, data:{"phone":phone}
+					, success:function(data){
+						phoneDuplicatedCheck = true;
+						
+						if(data.phone_duplicated == true){
+							phoneDuplicated = true;
+							$("#duplicatedPhone").removeClass("d-none");
+							$("#avaliablePhone").addClass("d-none");
+						}else{
+							phoneDuplicated = false;
+							$("#duplicatedPhone").addClass("d-none");
+							$("#avaliablePhone").removeClass("d-none");
+						}
+					}
+					, error:function(){
+						alert("중복체크 에러");
+					}
+				}) 
+			});
+			
 			// 번호 변경
 			$("#phoneBtn").on('click', function(){
 				let phone = $("#phoneInput").val();
 				
-				if(phone == ""){
-					alert("수정할 번호를 입력해주세요");
+				if(!phone.startsWith("010") || phone.length != 11){
+					alert("010로 시작한 11자리 전화번호를 입력하세요");
 					return;
 				}
+				
+				if(phoneDuplicatedCheck == false){
+					alert("번호 중복확인하세요");
+					return;
+				}
+				
+				if(phoneDuplicated == true){
+					alert("번호 중복되었습니다");
+					return;
+				}				
 				
 				$.ajax({
 					type: "post"
@@ -171,8 +226,7 @@
 						if(data.result == "success"){
 							location.reload();
 						}else{
-							alert("수정 실패. 이미 사용중인 번호입니다. 다른 번호 입력해주세요");
-							return;
+							alert("수정 실패. 이미 사용중인 번호입니다.");
 						}
 					}
 					, error:function(){
@@ -181,14 +235,70 @@
 				})
 			})
 			
+			// 이메일 중복 체크
+			var emailDuplicatedCheck = false;
+			var emailDuplicated = true;
+			
+			$("#emailDuplicatedChecked").on("click", function(){
+				let email = $("#emailInput").val();
+				
+				if(email == ""){
+					alert("이메일을 입력하세요");
+					return;
+				}
+				
+				if(email.includes("@") == false || email.endsWith(".com") == false){
+					alert("이메일은 @를 포함해야하며 .com로 끝나야 합니다");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/duplicated_email"
+					, data:{"email":email}
+					, success:function(data){
+						emailDuplicatedCheck = true;
+						
+						if(data.email_duplicated == true){
+							emailDuplicated = true;
+							$("#duplicatedEmail").removeClass("d-none");
+							$("#avaliableEmail").addClass("d-none");
+						}else{
+							emailDuplicated = false;
+							$("#duplicatedEmail").addClass("d-none");
+							$("#avaliableEmail").removeClass("d-none");
+						}
+					}
+					, error:function(){
+						alert("중복체크 에러");
+					}
+				}) 
+			});
+			
 			// 이메일 변경
 			$("#emailBtn").on('click', function(){
 				let email = $("#emailInput").val();
+				
+				if(emailDuplicatedCheck == false){
+					alert("이메일 중복확인하세요");
+					return;
+				}
+				
+				if(emailDuplicated == true){
+					alert("이메일 중복되었습니다");
+					return;
+				}
 				
 				if(email == ""){
 					alert("수정할 이메일을 입력해주세요");
 					return;
 				}
+				
+				if(email.includes("@") == false || email.endsWith(".com") == false){
+					alert("이메일은 @를 포함해야하며 .com로 끝나야 합니다");
+					return;
+				}
+				
 				
 				$.ajax({
 					type: "post"
@@ -198,8 +308,7 @@
 						if(data.result == "success"){
 							location.reload();
 						}else{
-							alert("수정 실패. 이미 사용중인 이메일입니다. 다른 이메일 입력해주세요");
-							return;
+							alert("수정 실패. 이미 사용중인 이메일입니다.");
 						}
 					}
 					, error:function(){
@@ -262,6 +371,7 @@
 		    });
 			
 			$("#identityChangeBtn").on("click", function(){
+				location.href="/user/signout";
 				location.href="/app/identity/view";
 			})
 			

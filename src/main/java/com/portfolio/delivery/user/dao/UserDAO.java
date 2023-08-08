@@ -70,14 +70,15 @@ public interface UserDAO {
 			@Param("userId") int userId
 			, @Param("email") String email);
 	
-	// 이메일 중복 여부
-	public int sameEmail(@Param("email") String email);
+	// 이메일 중복 여부 -- 수량 파악
+	public int selectSameEmail(@Param("email") String email);
 	
 	// 번호 변경
 	public int updatedPhone(
 			@Param("userId") int userId
 			, @Param("phone") String phone);
 	
-	// 번호 중복 여부
-	public int samePhone(@Param("phone") String phone);
+	// 번호 중복 여부 -- 수량 파악
+	public int selectSamePhone(@Param("phone") String phone);
+
 }

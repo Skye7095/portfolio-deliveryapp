@@ -165,6 +165,24 @@ public class UserRestController {
 		return result;
 	}
 	
+	// user 변경 시도한 이메일 중복 여부
+	@GetMapping("/duplicated_email")
+	public Map<String, Boolean> duplicatedEmail(@RequestParam("email") String email){
+		
+		boolean isDuplicatedByEmail = userBO.emailDuplicated(email);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(isDuplicatedByEmail == true) {
+			result.put("email_duplicated", true);
+		}else {
+			result.put("email_duplicated", false);
+		}
+		
+		
+		return result;
+	}
+	
 	// user 이메일 변경
 	@PostMapping("/emailUpdate")
 	public Map<String, String> emailUpdate(
@@ -176,23 +194,30 @@ public class UserRestController {
 		
 		int count = userBO.updatedEmail(id, email);
 		
-		int sameEmail = userBO.sameEmailCount(email);
-		
 		Map<String, String> result = new HashMap<>();
 		
-		
-		if(sameEmail == 1) {
-			if(count == 1) {
-				result.put("result", "success");
-			}
+		if(count == 1) {
+			result.put("result", "success");
 		}else {
 			result.put("result", "fail");
 		}
-//		if(count == 1 && sameEmail == 1) {
-//			result.put("result", "success");
-//		}else {
-//			result.put("result", "fail");
-//		}
+		return result;
+	}
+	
+	// user 변경 시도한 번호 중복 여부
+	@GetMapping("/duplicated_phone")
+	public Map<String, Boolean> duplicatedPhone(@RequestParam("phone") String phone){
+		
+		boolean isDuplicatedByPhone = userBO.phoneDuplicated(phone);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(isDuplicatedByPhone == true) {
+			result.put("phone_duplicated", true);
+		}else {
+			result.put("phone_duplicated", false);
+		}
+		
 		
 		return result;
 	}
@@ -208,16 +233,14 @@ public class UserRestController {
 		
 		int count = userBO.updatedPhone(id, phone);
 		
-		int samePhone = userBO.samePhoneCount(phone);
-		
 		Map<String, String> result = new HashMap<>();
 		
-		if(count == 1 && samePhone == 1) {
+		if(count == 1) {
 			result.put("result", "success");
 		}else {
 			result.put("result", "fail");
 		}
-		
 		return result;
 	}
+
 }

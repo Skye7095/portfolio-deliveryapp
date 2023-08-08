@@ -183,7 +183,7 @@
 	</update>
 	
 	<!-- 동일 이메일 수량 -->
-	<select id="sameEmail" parameterType="String" resultType="int">
+	<select id="selectSameEmail" parameterType="String" resultType="int">
 		SELECT
 			count(1)
 		FROM
@@ -202,8 +202,8 @@
 			`id` = #{userId}
 	</update>
 	
-	<!-- 동일 번호 수량 -->
-	<select id="samePhone" parameterType="String" resultType="int">
+	<!-- 동일 이메일 수량 -->
+	<select id="selectSamePhone" parameterType="String" resultType="int">
 		SELECT
 			count(1)
 		FROM
