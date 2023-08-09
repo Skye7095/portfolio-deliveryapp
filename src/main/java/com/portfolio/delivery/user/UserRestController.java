@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.user.bo.UserBO;
 import com.portfolio.delivery.user.model.User;
 
@@ -242,5 +243,35 @@ public class UserRestController {
 		}
 		return result;
 	}
+	
+	// user 비번 변경
+	@PostMapping("/pwUpdate")
+	public Map<String, String> pwUpdate(
+			@RequestParam("nowPW") String nowPW
+			, @RequestParam("newPW") String newPW
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("userId");
+		
+		User user = userBO.getUserById(id);
+		String password = user.getPassword();
+		
+		String encryptNowPW = EncryptUtils.md5(nowPW);
 
+		int count = userBO.updatedPW(id, newPW);
+		Map<String, String> result = new HashMap<>();
+		
+		if(password.equals(encryptNowPW) ) {
+			if(count == 1) {
+				result.put("result", "success");
+			}else {
+				result.put("result", "fail");
+			}
+		}else {
+			result.put("result", "fail");
+		}
+
+		return result;
+	}
 }

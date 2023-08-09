@@ -80,5 +80,9 @@ public interface UserDAO {
 	
 	// 번호 중복 여부 -- 수량 파악
 	public int selectSamePhone(@Param("phone") String phone);
-
+	
+	// 구 비번 확인 후 새 비번 update
+	public int updatedUserNewPW(
+			@Param("userId") int userId
+			, @Param("newPW") String newPW);
 }

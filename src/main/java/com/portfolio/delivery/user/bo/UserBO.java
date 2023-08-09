@@ -181,4 +181,13 @@ public class UserBO {
 			, String phone) {
 		return userDAO.updatedPhone(id, phone);
 	}
+	
+	// 비번 변경
+	public int updatedPW(
+			int id
+			, String newPW) {
+		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
+		
+		return userDAO.updatedUserNewPW(id, encryptNewPW);	
+	}
 }

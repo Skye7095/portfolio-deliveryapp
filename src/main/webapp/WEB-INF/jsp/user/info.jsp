@@ -136,7 +136,7 @@
 					<button class="btn border border-secondary" type="button" id="pwEyeBtnNew"><i class="eyeNew fa-solid fa-eye"></i></button>
 				</div>
 				<input type="password" class="form-control my-3" placeholder="신규 비밀번호 재확인" id="newPwDoubleInput">
-	    		<button type="button" class="btn btn-block btn-primary">변경완료</button>
+	    		<button type="button" class="btn btn-block btn-primary" id="pwBtn">변경완료</button>
 	    	</div>
 	    </div>
 	  </div>
@@ -163,6 +163,50 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			// 비번 	변경
+			$("#pwBtn").on("click", function(){
+				let nowPW = $("#nowPwInput").val();
+				let newPW = $("#newPwInput").val();
+				let newPWDoubleCheck = $("#newPwDoubleInput").val();
+				
+				if(nowPW == ""){
+					alert("현재 사용중인 비번을 입력해주세요");
+					return;
+				}
+				
+				if(newPW.length < 6){
+					alert("비밀번호가 6자 이상이어야 해요");
+					return;
+				}
+				
+				if(newPW != newPWDoubleCheck){
+					alert("새 비번 다시 확인해주세요");
+					return;
+				}
+				
+				if(nowPW == newPW){
+					alert("기존 비번과 같습니다.")
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/pwUpdate"
+					, data:{"nowPW":nowPW, "newPW":newPW}
+					, success:function(data){
+						if(data.result == "success"){
+							alert("비번 변경 성공");
+							location.reload();
+						}else{
+							alert("비번 변경 실패");
+						}
+					}
+					, error:function(){
+						alert("비번 변경 에러");
+					}
+				})
+			})
 			
 			// 번호 중복 체크
 			var phoneDuplicatedCheck = false;
