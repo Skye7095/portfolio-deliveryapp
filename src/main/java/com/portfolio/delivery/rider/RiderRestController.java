@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.rider.bo.RiderBO;
 import com.portfolio.delivery.rider.model.Rider;
 import com.portfolio.delivery.user.model.User;
@@ -140,6 +141,115 @@ public class RiderRestController {
 			result.put("newPW", newPW);
 		}
 		
+		return result;
+	}
+	
+	// 변경 시도한 이메일 중복 여부
+	@GetMapping("/duplicated_email")
+	public Map<String, Boolean> duplicatedEmail(@RequestParam("email") String email){
+		
+		boolean isDuplicatedByEmail = riderBO.emailDuplicated(email);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(isDuplicatedByEmail == true) {
+			result.put("email_duplicated", true);
+		}else {
+			result.put("email_duplicated", false);
+		}
+		
+		
+		return result;
+	}
+	
+	// 이메일 변경
+	@PostMapping("/emailUpdate")
+	public Map<String, String> emailUpdate(
+			@RequestParam("email") String email
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("riderId");
+		
+		int count = riderBO.updatedEmail(id, email);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
+		}
+		return result;
+	}
+	
+	//  변경 시도한 번호 중복 여부
+	@GetMapping("/duplicated_phone")
+	public Map<String, Boolean> duplicatedPhone(@RequestParam("phone") String phone){
+		
+		boolean isDuplicatedByPhone = riderBO.phoneDuplicated(phone);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(isDuplicatedByPhone == true) {
+			result.put("phone_duplicated", true);
+		}else {
+			result.put("phone_duplicated", false);
+		}
+		
+		
+		return result;
+	}
+	
+	// 번호 변경
+	@PostMapping("/phoneUpdate")
+	public Map<String, String> phoneUpdate(
+			@RequestParam("phone") String phone
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("riderId");
+		
+		int count = riderBO.updatedPhone(id, phone);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
+		}
+		return result;
+	}
+	
+	// 비번 변경
+	@PostMapping("/pwUpdate")
+	public Map<String, String> pwUpdate(
+			@RequestParam("nowPW") String nowPW
+			, @RequestParam("newPW") String newPW
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("riderId");
+		
+		Rider rider = riderBO.getRiderById(id);
+		String password = rider.getPassword();
+		
+		String encryptNowPW = EncryptUtils.md5(nowPW);
+
+		int count = riderBO.updatedPW(id, newPW);
+		Map<String, String> result = new HashMap<>();
+		
+		if(password.equals(encryptNowPW) ) {
+			if(count == 1) {
+				result.put("result", "success");
+			}else {
+				result.put("result", "fail");
+			}
+		}else {
+			result.put("result", "fail");
+		}
+
 		return result;
 	}
 }

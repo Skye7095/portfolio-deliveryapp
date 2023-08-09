@@ -7,7 +7,6 @@ import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.common.randomPW;
 import com.portfolio.delivery.rider.dao.RiderDAO;
 import com.portfolio.delivery.rider.model.Rider;
-import com.portfolio.delivery.user.model.User;
 
 @Service
 public class RiderBO {
@@ -130,5 +129,57 @@ public class RiderBO {
 		}
 		
 		return newPW;
+	}
+	
+	// id로 rider 모든 정보 불러오기
+	public Rider getRiderById(int id) {
+		return riderDAO.selectRiderById(id);
+	}
+	
+	// 이메일 중복수량
+	public boolean emailDuplicated(String email) {
+		int count = riderDAO.selectSameEmail(email);
+		
+		if(count != 0) { //중복
+			return true;
+		}else { // 중복하지 않음
+			return false;
+		}
+		
+	}
+	
+	// 이메일 변경
+	public int updatedEmail(
+			int id
+			, String email) {
+		return riderDAO.updatedEmail(id, email);
+	}
+	
+	// 번호 중복수량
+	public boolean phoneDuplicated(String phone) {
+		int count = riderDAO.selectSamePhone(phone);
+		
+		if(count != 0) { //중복
+			return true;
+		}else { // 중복하지 않음
+			return false;
+		}
+		
+	}
+	
+	// 번호 변경
+	public int updatedPhone(
+			int id
+			, String phone) {
+		return riderDAO.updatedPhone(id, phone);
+	}
+	
+	// 비번 변경
+	public int updatedPW(
+			int id
+			, String newPW) {
+		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
+		
+		return riderDAO.updatedUserNewPW(id, encryptNewPW);	
 	}
 }

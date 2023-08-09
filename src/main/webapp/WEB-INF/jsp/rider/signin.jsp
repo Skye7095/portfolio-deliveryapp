@@ -70,7 +70,7 @@
 					, data: {"loginId": id, "password":password}
 					, success: function(data){
 						if(data.result == "success"){
-							location.href="/rider/mypage/view"
+							location.href="/rider/info/view"
 						}else{
 							alert("로그인 실패");
 						}

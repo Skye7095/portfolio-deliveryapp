@@ -131,4 +131,71 @@
 		WHERE
 			`id` = #{riderId}
 	</update>
+	
+	<!-- id로 rider 모든 정보 불러오리  -->
+	<select id="selectRiderById" parameterType="int" resultType="com.portfolio.delivery.rider.model.Rider">
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phone`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`rider`
+		WHERE
+			`id` = #{riderId}
+	</select>
+	
+	<!-- 이메일 업데이트 -->
+	<update id="updatedEmail" parameterType="map">
+		UPDATE
+			`rider`
+		SET
+			`email` = #{email}
+		WHERE
+			`id` = #{riderId}
+	</update>
+	
+	<!-- 동일 이메일 수량 -->
+	<select id="selectSameEmail" parameterType="String" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`rider`
+		WHERE
+			`email` = #{email}
+	</select>
+	
+	<!-- 번호 업데이트 -->
+	<update id="updatedPhone" parameterType="map">
+		UPDATE
+			`rider`
+		SET
+			`phone` = #{phone}
+		WHERE
+			`id` = #{riderId}
+	</update>
+	
+	<!-- 동일 이메일 수량 -->
+	<select id="selectSamePhone" parameterType="String" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`rider`
+		WHERE
+			`phone` = #{phone}
+	</select>
+	
+	<!-- 새 비번 update -->
+	<update id="updatedUserNewPW" parameterType="map">
+		UPDATE
+			`rider`
+		SET
+			`password` = #{newPW}
+		WHERE
+			`id` = #{riderId}
+	</update>
 </mapper>

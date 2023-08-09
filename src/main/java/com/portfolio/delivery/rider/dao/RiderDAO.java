@@ -4,7 +4,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.portfolio.delivery.rider.model.Rider;
-import com.portfolio.delivery.user.model.User;
 
 @Repository
 public interface RiderDAO {
@@ -53,6 +52,30 @@ public interface RiderDAO {
 	
 	// rider 비밀번호 찾기 후 랜덤 비번 생성한 뒤 기존 비번 update
 	public int updatedRiderPW(
+			@Param("riderId") int riderId
+			, @Param("newPW") String newPW);
+	
+	// id로 rider 모든 정보 불러오기
+	public Rider selectRiderById(@Param("riderId") int riderId);
+	
+	// 이메일 변경
+	public int updatedEmail(
+			@Param("riderId") int riderId
+			, @Param("email") String email);
+	
+	// 이메일 중복 여부 -- 수량 파악
+	public int selectSameEmail(@Param("email") String email);
+	
+	// 번호 변경
+	public int updatedPhone(
+			@Param("riderId") int riderId
+			, @Param("phone") String phone);
+	
+	// 번호 중복 여부 -- 수량 파악
+	public int selectSamePhone(@Param("phone") String phone);
+	
+	// 새 비번 update
+	public int updatedUserNewPW(
 			@Param("riderId") int riderId
 			, @Param("newPW") String newPW);
 }
