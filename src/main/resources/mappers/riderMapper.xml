@@ -188,14 +188,4 @@
 		WHERE
 			`phone` = #{phone}
 	</select>
-	
-	<!-- 새 비번 update -->
-	<update id="updatedUserNewPW" parameterType="map">
-		UPDATE
-			`rider`
-		SET
-			`password` = #{newPW}
-		WHERE
-			`id` = #{riderId}
-	</update>
 </mapper>

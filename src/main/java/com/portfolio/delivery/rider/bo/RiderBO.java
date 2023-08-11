@@ -180,6 +180,6 @@ public class RiderBO {
 			, String newPW) {
 		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
 		
-		return riderDAO.updatedUserNewPW(id, encryptNewPW);	
+		return riderDAO.updatedRiderPW(id, encryptNewPW);
 	}
 }

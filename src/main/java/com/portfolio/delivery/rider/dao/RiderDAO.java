@@ -73,9 +73,4 @@ public interface RiderDAO {
 	
 	// 번호 중복 여부 -- 수량 파악
 	public int selectSamePhone(@Param("phone") String phone);
-	
-	// 새 비번 update
-	public int updatedUserNewPW(
-			@Param("riderId") int riderId
-			, @Param("newPW") String newPW);
 }
