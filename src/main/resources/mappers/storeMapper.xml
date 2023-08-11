@@ -79,4 +79,20 @@
 		WHERE
 			`id` = #{storeId}
 	</update>
+	
+	<!-- id로 store 모든 정보 불러오리  -->
+	<select id="selectStoreById" parameterType="int" resultType="com.portfolio.delivery.store.model.Store">
+		SELECT
+			`id`
+			, `businessNumber`
+			, `password`
+			, `ownerName`
+			, `ownerPhone`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`store`
+		WHERE
+			`id` = #{storeId}
+	</select>
 </mapper>

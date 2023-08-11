@@ -7,7 +7,6 @@ import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.common.randomPW;
 import com.portfolio.delivery.store.dao.StoreDAO;
 import com.portfolio.delivery.store.model.Store;
-import com.portfolio.delivery.user.model.User;
 
 @Service
 public class StoreBO {
@@ -73,5 +72,19 @@ public class StoreBO {
 		}
 		
 		return newPW;
+	}
+	
+	// id로 store 모든 정보 불러오기
+	public Store getStoreById(int id) {
+		return storeDAO.selectStoreById(id);
+	}
+	
+	// 비번 변경
+	public int updatedPW(
+			int id
+			, String newPW) {
+		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
+		
+		return storeDAO.updatedStorePW(id, encryptNewPW);
 	}
 }

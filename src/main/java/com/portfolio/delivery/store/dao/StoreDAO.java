@@ -33,4 +33,7 @@ public interface StoreDAO {
 	public int updatedStorePW(
 			@Param("storeId") int storeId
 			, @Param("newPW") String newPW);
+	
+	// id로 store 모든 정보 불러오기
+	public Store selectStoreById(@Param("storeId") int storeId);
 }

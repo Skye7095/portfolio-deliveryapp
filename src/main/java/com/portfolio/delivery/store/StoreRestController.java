@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.store.bo.StoreBO;
 import com.portfolio.delivery.store.model.Store;
 
@@ -74,7 +75,7 @@ public class StoreRestController {
 		
 		if(store != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("id", store.getId());
+			session.setAttribute("storeId", store.getId());
 			
 			result.put("result", "success");
 		}else {
@@ -101,6 +102,37 @@ public class StoreRestController {
 			result.put("newPW", newPW);
 		}
 		
+		return result;
+	}
+	
+	// store 비번 변경
+	@PostMapping("/pwUpdate")
+	public Map<String, String> pwUpdate(
+			@RequestParam("nowPW") String nowPW
+			, @RequestParam("newPW") String newPW
+			, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("storeId");
+		
+		Store store = storeBO.getStoreById(id);
+		String password = store.getPassword();
+		
+		String encryptNowPW = EncryptUtils.md5(nowPW);
+
+		int count = storeBO.updatedPW(id, newPW);
+		Map<String, String> result = new HashMap<>();
+		
+		if(password.equals(encryptNowPW) ) {
+			if(count == 1) {
+				result.put("result", "success");
+			}else {
+				result.put("result", "fail");
+			}
+		}else {
+			result.put("result", "fail");
+		}
+
 		return result;
 	}
 }
