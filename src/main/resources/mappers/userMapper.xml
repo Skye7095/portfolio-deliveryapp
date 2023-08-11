@@ -211,14 +211,4 @@
 		WHERE
 			`phone` = #{phone}
 	</select>
-	
-	<!-- 새 비번 update -->
-	<update id="updatedUserNewPW" parameterType="map">
-		UPDATE
-			`user`
-		SET
-			`password` = #{newPW}
-		WHERE
-			`id` = #{userId}
-	</update>
 </mapper>

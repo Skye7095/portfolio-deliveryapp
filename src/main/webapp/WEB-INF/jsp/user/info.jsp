@@ -416,7 +416,6 @@
 			
 			$("#identityChangeBtn").on("click", function(){
 				location.href="/user/signout";
-				location.href="/app/identity/view";
 			})
 			
 			$("#profileImgBtn").on("click", function(){

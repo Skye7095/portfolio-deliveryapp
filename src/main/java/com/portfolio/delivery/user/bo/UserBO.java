@@ -156,7 +156,7 @@ public class UserBO {
 		
 	}
 	
-	// 번호 변경
+	// 이메일 변경
 	public int updatedEmail(
 			int id
 			, String email) {
@@ -175,7 +175,7 @@ public class UserBO {
 		
 	}
 	
-	// 이메일 변경
+	// 번호 변경
 	public int updatedPhone(
 			int id
 			, String phone) {
@@ -188,6 +188,6 @@ public class UserBO {
 			, String newPW) {
 		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
 		
-		return userDAO.updatedUserNewPW(id, encryptNewPW);	
+		return userDAO.updatedUserPW(id, encryptNewPW);
 	}
 }
