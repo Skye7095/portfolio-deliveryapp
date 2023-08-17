@@ -95,4 +95,49 @@
 		WHERE
 			`id` = #{storeId}
 	</select>
+	
+	<!-- 가게정보 입력 -->
+	<insert id="insertStoreInfo" parameterType="map">
+		INSERT INTO
+			`store_info`
+		(
+			`storeId`
+			, `phone`
+			, `category`
+			, `storeImgPath`
+			, `name`
+			, `introduction`
+			, `minOrderPrice`
+			, `deliveryBasicFee`
+			, `deliveryArea`
+			, `rating`
+			, `likes`
+			, `reviews`
+			, `comments`
+			, `operationHours`
+			, `closedDays`
+			, createdAt
+			, updatedAt
+		)
+		VALUE
+		(
+			#{storeId}
+			, #{phone}
+			, #{category}
+			, #{storeImgPath}
+			, #{name}
+			, #{introduction}
+			, #{minOrderPrice}
+			, #{deliveryBasicFee}
+			, #{deliveryArea}
+			, 0
+			, 0
+			, 0
+			, 0
+			, #{operationHours}
+			, #{closedDays}
+			, now()
+			, now()
+		)
+	</insert>
 </mapper>

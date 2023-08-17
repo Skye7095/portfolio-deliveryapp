@@ -28,13 +28,39 @@ public class StoreController {
 	}
 	
 	@GetMapping("/mypage/view")
-	public String StoreMypageView() {
+	public String StoreMypageView(
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("storeId");
+		
 		return "/store/mypage";
 	}
 	
 	@GetMapping("/info/view")
 	public String StoreInfoView() {
 		return "/store/info";
+	}
+	
+	// 가게 기본 정보 최초 입력
+	@GetMapping("/insertInfo/view")
+	public String createStoreInfoView(
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("storeId");
+		
+		return "/store/insertInfo";
+	}
+	
+	// 가게 추가 정보 입력
+	@GetMapping("/moreInfo/view")
+	public String moreStoreInfoView() {
+		return "/store/moreInfo";
+	}
+	
+	// 가게 정보 수정
+	@GetMapping("/modifyInfo/view")
+	public String modifyStoreInfoView() {
+		return "/store/modifyInfo";
 	}
 	
 	@GetMapping("/menuManagement/view")

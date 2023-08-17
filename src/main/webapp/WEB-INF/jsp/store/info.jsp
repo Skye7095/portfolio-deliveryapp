@@ -29,120 +29,45 @@
 			<button type="button" class="btn home bg-primary"><i class="fa-solid fa-house fa-2xl"></i></button>
 		</header>
 		
-		<section class="container">
-			<div class="text-center my-3">
-				<button type="button" id="profileImgBtn" class="btn"><img width="100" src="/static/images/profile image.png"></button>
-				<input class="profile mt-3 d-none" type="file" multiple id="profileFileInput">
-			</div>
-			
-			<div class="d-flex justify-content-center">
-				<input class="form-control col-8" placeholder="가게 이름을 입력해주세요">
-			</div>
-			
-			<textarea class="form-control mt-2" rows="5" placeholder="가게를 소개해주세요"></textarea>
-			
-			<div class="d-flex justify-content-between align-items-center mt-2">
-				<span>가게 카테고리</span>
-				<select class="form-control col-7">
-				  <option selected>한식</option>
-				  <option value="1">중식</option>
-				  <option value="2">일식</option>
-				  <option value="3">피자</option>
-				  <option value="4">치킨</option>
-				  <option value="5">햄버거</option>
-				  <option value="6">분식</option>
-				  <option value="7">카페</option>
-				  <option value="8">야식</option>
-				</select>
-			</div>
-			
-			<div class="d-flex justify-content-between align-items-center mt-2">
-				<span>최소 주문금액</span>
-				<div class="d-flex justify-content-end align-items-center">
-					<input class="form-control">
-					<span>원</span>		
+		<section>
+			<button type="button" id="createStoreBtn" class="border border-primary btn btn-lg btn-block btn-primary mt-3">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">가게 기본 정보 입력</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
+					</div>
 				</div>
-			</div>
-			
-			<div class="border border-secondary bg-light mt-3 p-1">
-				<h5 class="font-weight-bold">영업정보</h5>
-				<div class="d-flex justify-content-around align-items-center">
-					<span class="col-4">영업시간</span>
-					<input class="form-control col-8" placeholder="월 10:00 ~ 토 22:00">
+			</button>
+			<button type="button" id="moreInfoBtn" class="border border-primary btn btn-lg btn-block btn-primary mt-3">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">가게 추가 정보 입력</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
+					</div>
 				</div>
-				<div class="d-flex justify-content-around align-items-center mt-1">
-					<span class="col-4">휴무일</span>
-					<input class="form-control col-8" placeholder="화요일">
+			</button>
+			<button type="button" id="modifyStoreBtn" class="border border-success btn btn-lg btn-block btn-success mt-3">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-weight-bold">가게 정보 수정</span>
+					<div class="d-flex align-items-center">
+						<span class="text-secondary"> ></span>
+					</div>
 				</div>
-				<div class="d-flex justify-content-around align-items-center mt-1">
-					<span class="col-4">배달지역</span>
-					<input class="form-control col-8" placeholder="관악구 전체">
-				</div>
-			</div>
-			
-			<div class="border border-secondary bg-light mt-3 p-1">
-				<h5 class="font-weight-bold">배달팁</h5>
-				
-				<span>주문금액별</span>
-				<button type="button" class="orderPriceOptionAddBtn btn btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button>
-				
-				<table class="table mt-2">					
-					<tbody class="orderPriceTable">
-						<tr>
-							<td class="border border-dark col-8"><input placeholder="30,000" class="col-7">원 이상</td>
-							<td class="border border-dark col-4"><input placeholder="0" class="col-6">원</td>
-						</tr>
-						<tr>
-							<td class="border border-dark col-8"><input class="col-3">원 ~ <input class="col-3">원 미만</td>
-							<td class="border border-dark col-4"><input placeholder="0" class="col-6">원</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<span>그외 추가 배달팁(중복 적용)</span>
-				<button type="button" class="orderOptionAddBtn btn btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button>
-				
-				<table class="table mt-2">					
-					<tbody class="otherFeeTable">
-						<tr>
-							<td class="border border-dark col-8"><input placeholder="월화수목금토 00:00~03:00"></td>
-							<td class="border border-dark col-4"><span>+</span><input placeholder="1,000" class="col-6">원</td>
-						</tr>
-						<tr>
-							<td class="border border-dark col-8"><input placeholder="방배1동, 방배2동"></td>
-							<td class="border border-dark col-4"><span>+</span><input placeholder="500" class="col-6">원</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			
-			<button type="button" class="btn btn-block btn-primary my-3">확인</button>
+			</button>
 		</section>
-	</div>
-	
+			
 	<script>
-		$(document).ready(function(){
-			
-			var orderPriceOption = '<tr>' + 
-				'<td class="border border-dark col-8"><input class="col-3">원 ~ <input class="col-3">원 미만</td>' +
-				'<td class="border border-dark col-4"><input placeholder="0" class="col-6">원</td>' +
-				'</tr>'
-			
-			var orderOption = '<tr>' + 
-				'<td class="border border-dark col-8"><input placeholder="서초구 방배동"></td>' +
-				'<td class="border border-dark col-4"><span>+</span><input placeholder="500" class="col-6">원</td>' +
-				'</tr>'
-				
-			$(".orderPriceOptionAddBtn").on("click", function(){
-				$(".orderPriceTable").append(orderPriceOption + 1);
-			    
-			    $(this).addClass("d-none");
+		$(document).ready(function(){	
+			$("#createStoreBtn").on("click", function(){
+				location.href="/store/insertInfo/view";
 			})
 			
-			$(".orderOptionAddBtn").on("click", function(){
-				$(".otherFeeTable").append(orderOption + 1);
-				
-				$(this).addClass("d-none");
+			$("#moreInfoBtn").on("click", function(){
+				location.href="/store/moreInfo/view";
+			})
+			
+			$("#modifyStoreBtn").on("click", function(){
+				location.href="/store/modifyInfo/view";
 			})
 			
 			$(".back").on("click", function(){

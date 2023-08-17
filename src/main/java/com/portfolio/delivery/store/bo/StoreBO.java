@@ -2,8 +2,10 @@ package com.portfolio.delivery.store.bo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.portfolio.delivery.common.EncryptUtils;
+import com.portfolio.delivery.common.FileManagerService;
 import com.portfolio.delivery.common.randomPW;
 import com.portfolio.delivery.store.dao.StoreDAO;
 import com.portfolio.delivery.store.model.Store;
@@ -86,5 +88,23 @@ public class StoreBO {
 		String encryptNewPW = EncryptUtils.md5(newPW); // 임시비번 암호화
 		
 		return storeDAO.updatedStorePW(id, encryptNewPW);
+	}
+	
+	// 가게 정보 입력
+	public int addStoreInfo(
+			int storeId
+			, String phone
+			, String category
+			, MultipartFile storeImg
+			, String name
+			, String introduction
+			, int minOrderPrice
+			, int deliveryBasicFee
+			, String deliveryArea
+			, String operationHours
+			, String closedDays) {
+		String storeImgPath = FileManagerService.saveFile(storeId, storeImg);
+		
+		return storeDAO.insertStoreInfo(storeId, phone, category, storeImgPath, name, introduction, minOrderPrice, deliveryBasicFee, deliveryArea, operationHours, closedDays);
 	}
 }

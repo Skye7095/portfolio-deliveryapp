@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.portfolio.delivery.common.EncryptUtils;
 import com.portfolio.delivery.store.bo.StoreBO;
@@ -133,6 +134,36 @@ public class StoreRestController {
 			result.put("result", "fail");
 		}
 
+		return result;
+	}
+	
+	// store 가게 정보 입력
+	@PostMapping("/createStore")
+	public Map<String, String> createStore(
+			@RequestParam("phone") String phone
+			, @RequestParam("category") String category
+			, @RequestParam("storeImg") MultipartFile storeImg
+			, @RequestParam("name") String name
+			, @RequestParam("introduction") String introduction
+			, @RequestParam("minOrderPrice") int minOrderPrice
+			, @RequestParam("deliveryBasicFee") int deliveryBasicFee
+			, @RequestParam("deliveryArea") String deliveryArea
+			, @RequestParam("operationHours") String operationHours
+			, @RequestParam("closedDays") String closedDays
+			, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		int id = (Integer)session.getAttribute("storeId");
+		
+		int count = storeBO.addStoreInfo(id, phone, category, storeImg, name, introduction, minOrderPrice, deliveryBasicFee, deliveryArea, operationHours, closedDays);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
+		}
+		
 		return result;
 	}
 }

@@ -36,4 +36,18 @@ public interface StoreDAO {
 	
 	// id로 store 모든 정보 불러오기
 	public Store selectStoreById(@Param("storeId") int storeId);
+	
+	// 가게 정보 입력
+	public int insertStoreInfo(
+			@Param("storeId") int storeId
+			, @Param("phone") String phone
+			, @Param("category") String category
+			, @Param("storeImgPath") String storeImgPath
+			, @Param("name") String name
+			, @Param("introduction") String introduction
+			, @Param("minOrderPrice") int minOrderPrice
+			, @Param("deliveryBasicFee") int deliveryBasicFee
+			, @Param("deliveryArea") String deliveryArea
+			, @Param("operationHours") String operationHours
+			, @Param("closedDays") String closedDays);
 }

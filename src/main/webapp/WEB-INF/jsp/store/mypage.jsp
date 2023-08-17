@@ -31,8 +31,7 @@
 		
 		<section class="container">
 			<div class="text-center my-3">
-				<button type="button" id="profileImgBtn" class="btn"><img width="100" src="/static/images/profile image.png"></button>
-				<input class="profile mt-3 d-none" type="file" multiple id="profileFileInput">
+				<button type="button" class="btn"><img width="100" src="/static/images/profile image.png"></button>
 			</div>
 			
 			<button type="button" id="storeInfoBtn" class="border border-secondary btn btn-lg btn-block btn-light mt-3" data-bs-toggle="button">
@@ -215,10 +214,6 @@
 			
 			$("#storeInfoBtn").on("click", function(){
 				location.href="/store/info/view";
-			})
-			
-			$("#profileImgBtn").on("click", function(){
-				$(".profile").click();
 			})
 			
 			$(".back").on("click", function(){
